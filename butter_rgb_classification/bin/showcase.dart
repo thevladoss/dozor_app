@@ -1,17 +1,17 @@
 // Read three numbers and print them
 
-import 'dart:io';
+import 'package:butter_rgb_classification/predict.dart';
 
 void main() {
-  print("Enter RGB values in format R,G,B");
-  String? input = stdin.readLineSync();
-  if (input == null) {
-    print("No input");
-    return;
-  }
-  List<String> rgb = input.split(",");
-  int r = int.parse(rgb[0]);
-  int g = int.parse(rgb[1]);
-  int b = int.parse(rgb[2]);
-  print("R: $r, G: $g, B: $b");
+  ButterClassifier butterClassifier = ButterClassifier(
+    pathToCsv: 'data/butter_rgb_with_labels_numbers.csv',
+    labelTable: const {
+      0: 'сливочное',
+      1: 'кокосовое',
+      2: 'фальсификат',
+    },
+  );
+
+  // Sample
+  print(butterClassifier.predict(100, 100, 100));
 }
