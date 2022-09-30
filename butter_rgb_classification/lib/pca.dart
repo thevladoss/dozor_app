@@ -1,66 +1,38 @@
-import 'dart:io';
-import 'package:ml_linalg/linalg.dart';
-
-class PCA {
-  PCA(Matrix trainData, {int nVariables = 2}) {
-    // Center data
-    final mean = trainData.mean();
-
-    // For every row, subtract the mean of the
-    final centeredData = trainData.mapRows((row) => row - mean);
-
-    // Calculate covariance matrix step by step
-    Matrix cov = centeredData.transpose() * centeredData;
-    // cov /= trainData.rowsNum - 1;
-
-    // Calculate eigenvalues and eigenvectors
-    final eigen = cov.eigen().toList();
-
-    // Sort the eigenvalues in descending order
-    eigen.sort();
-    print("eigen: $eigen");
+class PCAButter {
+  List<double> transform(List<double> rgb) {
+    // Transform RGB to PCA space
+    // Coefficents are from docs/1.1_TIS_EDA.ipynb
+    return [
+      rgb[0] * -0.24520308 + rgb[1] * 0.11216704 + rgb[2] * 0.96296106,
+      rgb[0] * 0.7728561 + rgb[1] * 0.62228628 + rgb[2] * 0.12431103,
+    ];
   }
 
-  List<double> transform(List<double> data) {
-    return [];
+  List<List<double>> listTransform(List<List<double>> rgbs) {
+    // Transform list of RGBs to PCA space
+    List<List<double>> pcaRgbs = [];
+    for (var rgb in rgbs) {
+      pcaRgbs.add(transform(rgb));
+    }
+    return pcaRgbs;
   }
 }
 
 double reciprocal(int d) => 1 / d;
 
 void main() {
-  // Read list from csv file
-  String csv =
-      File('data/butter_rgb_with_labels_numbers.csv').readAsStringSync();
-
-  // Ignore first line in multiline string
-  csv = csv.split('\n').skip(1).join('\n');
-
-  print(csv);
-  // Take only first three columns
-  List<List<double>> data = csv
-      .split('\n')
-      .map((e) => e.split(',').take(3).map(int.parse).map(reciprocal).toList())
-      .toList();
-  // Convert to Matrix
-  Matrix csvMatrix = Matrix.fromList(data);
-
-  // Normalize data in each column
-  List<Vector> cols = csvMatrix.columns.map((e) => e.normalize()).toList();
-  csvMatrix = Matrix.fromColumns(cols);
-  print("csvMatrix: $csvMatrix");
-
   print('Hello, PCA!');
-  final pca = PCA(
-    csvMatrix,
-    nVariables: 2,
-  );
+  final pca = PCAButter();
 
   // Calculate the principal components for
   // new sample
-  List<double> sample = [100, 100, 100];
-  print(sample);
+  List<List<double>> samples = [
+    [100, 100, 100],
+    [200, 200, 200],
+    [300, 300, 300],
+  ];
+  print(samples);
 
-  List<double> pca_sample = pca.transform(sample);
-  print(pca_sample);
+  List<List<double>> pcaSample = pca.listTransform(samples);
+  print(pcaSample);
 }
