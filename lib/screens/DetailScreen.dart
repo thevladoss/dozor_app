@@ -8,6 +8,9 @@ import 'package:photo_view/photo_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../algo/predict.dart';
+import '../models/pair.dart';
+
 class DetailScreen extends StatefulWidget {
   final String imagePath;
 
@@ -19,9 +22,12 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   List<int> imageDataList = List<int>.empty(growable: false);
+  bool isLoading = false;
   late Image image;
   final imageKey = GlobalKey();
-  final onColorPicked = ValueNotifier<Color>(Colors.black);
+  final onColorPicked = ValueNotifier<Pair<String, Color>>(
+      Pair('Выберите пиксель', Colors.black));
+  final ButterClassifier butterClassifier = ButterClassifier();
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +48,18 @@ class _DetailScreenState extends State<DetailScreen> {
             key: imageKey,
             child: PhotoView(
               onTapDown: (_, event, photo) async {
+                setState(() {
+                  isLoading = true;
+                });
                 imageDataList = await captureImage();
-                getPixelColor(event.localPosition);
+                await getPixelColor(event.localPosition);
+                setState(() {
+                  isLoading = false;
+                });
               },
               minScale: PhotoViewComputedScale.covered,
               backgroundDecoration:
-              const BoxDecoration(color: Colors.transparent),
+                  const BoxDecoration(color: Colors.transparent),
               customSize: MediaQuery.of(context).size,
               imageProvider: FileImage(File(widget.imagePath)),
             ),
@@ -60,15 +72,15 @@ class _DetailScreenState extends State<DetailScreen> {
             padding: const EdgeInsets.all(16.0),
             panel: Column(
               children: <Widget>[
-                ValueListenableBuilder<Color>(
+                ValueListenableBuilder<Pair<String, Color>>(
                     valueListenable: onColorPicked,
-                    builder: (_, color, child) {
+                    builder: (_, pair, child) {
                       return Row(
                         children: <Widget>[
                           Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: color,
+                              color: pair.color,
                             ),
                             height: 48,
                             width: 48,
@@ -76,12 +88,30 @@ class _DetailScreenState extends State<DetailScreen> {
                           const SizedBox(
                             width: 16.0,
                           ),
-                          Text(
-                            "rgba(${color.red}, ${color.green}, ${color.blue}, ${color.alpha})",
-                            style: GoogleFonts.openSans(
-                                height: 1.0,
-                                textStyle: const TextStyle(fontSize: 22.0)),
-                            textAlign: TextAlign.center,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "rgb(${pair.color.red}, ${pair.color.green}, ${pair.color.blue})",
+                                style: GoogleFonts.openSans(
+                                    height: 1.0,
+                                    textStyle: const TextStyle(fontSize: 16.0)),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                height: 2.0,
+                              ),
+                              Text(
+                                pair.result,
+                                style: GoogleFonts.openSans(
+                                    height: 1.0,
+                                    textStyle: const TextStyle(fontSize: 24.0),
+                                    fontWeight: FontWeight.w600),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           )
                         ],
                       );
@@ -95,12 +125,13 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             ),
           ),
+          (isLoading) ? const LinearProgressIndicator() : Container()
         ],
       ),
     );
   }
 
-  void getPixelColor(Offset position) {
+  Future<void> getPixelColor(Offset position) async {
     if (imageDataList.isEmpty) return;
     final w = image.width;
     final h = image.height;
@@ -111,12 +142,14 @@ class _DetailScreenState extends State<DetailScreen> {
     final list = imageDataList;
     var i = y * (w * 4) + x * 4;
 
-    onColorPicked.value = Color.fromARGB(
-      list[i + 3],
-      list[i],
-      list[i + 1],
-      list[i + 2],
-    );
+    onColorPicked.value = Pair(
+        await butterClassifier.predict(list[i + 3], list[i], list[i + 1]),
+        Color.fromARGB(
+          list[i + 3],
+          list[i],
+          list[i + 1],
+          list[i + 2],
+        ));
   }
 
   Future<List<int>> captureImage() async {

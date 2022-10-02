@@ -42,8 +42,11 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+
+
   @override
   void dispose() {
+    print("loh");
     controller.dispose();
     super.dispose();
   }

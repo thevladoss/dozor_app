@@ -2,27 +2,29 @@
 // https://pub.dev/packages/ml_algo
 
 import 'dart:io';
-
 import 'package:ml_algo/ml_algo.dart';
 import 'package:ml_dataframe/ml_dataframe.dart';
-
+import 'package:flutter/services.dart' show rootBundle;
 import 'pca.dart';
 
 class ButterClassifier {
-  late final KnnClassifier _classifier;
-  late final PCAButter _pca;
+  KnnClassifier? _classifier;
+  final PCAButter _pca = PCAButter();
   final Map<int, String> labelTable;
+  final String pathToCsv;
 
   ButterClassifier({
-    String pathToCsv = 'data/butter_rgb_with_labels_numbers.csv',
+    this.pathToCsv = 'data/butter_rgb_with_labels_numbers.csv',
     this.labelTable = const {
-      0: 'сливочное',
-      1: 'кокосовое',
-      2: 'фальсификат',
+      0: 'Сливочное',
+      1: 'Кокосовое',
+      2: 'Фальсификат',
     },
-  }) {
+  });
+
+  Future _init() async {
     // Load training Data From CSV
-    String csv = File(pathToCsv).readAsStringSync();
+    String csv = await rootBundle.loadString(pathToCsv);
 
     // csv to List<List<double>>
     List<List<double>> trainingData = [];
@@ -47,7 +49,6 @@ class ButterClassifier {
     }
 
     // Create PCA columns
-    _pca = PCAButter();
     List<List<double>> pcaRGBData = _pca.listTransform(trainingData);
 
     final pca1 = pcaRGBData.map((e) => e[0]).toList();
@@ -69,7 +70,11 @@ class ButterClassifier {
     );
   }
 
-  String predict(int r, int g, int b) {
+  Future<String> predict(int r, int g, int b) async {
+    if (_classifier == null) {
+      await _init();
+    }
+
     // Define sample data
     final sample = [
       ['pca1', 'pca2'],
@@ -78,20 +83,7 @@ class ButterClassifier {
     final df = DataFrame(sample);
 
     // Predict cluster for sample data
-    int idxCluster = _classifier.predict(df).rows.first.first.round();
+    int idxCluster = _classifier!.predict(df).rows.first.first.round();
     return labelTable[idxCluster]!;
   }
-}
-
-void main() {
-  print('Hello, ButterClassifier!');
-  ButterClassifier butterClassifier = ButterClassifier(
-    pathToCsv: 'data/butter_rgb_with_labels_numbers.csv',
-    labelTable: const {
-      0: 'сливочное',
-      1: 'кокосовое',
-      2: 'фальсификат',
-    },
-  );
-  print(butterClassifier.predict(100, 100, 100));
 }
