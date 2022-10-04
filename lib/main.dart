@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:maslo_detector/screens/MainScreen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'algo/predict.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final cameras = await availableCameras();

@@ -173,7 +173,7 @@ class _DetailScreenState extends State<DetailScreen> {
     );
 
     onColorPicked.value = Pair(
-        await butterClassifier.predict(list[i + 3], list[i], list[i + 1]),
+        await butterClassifier.predict(colorOfPoint.red, colorOfPoint.green, colorOfPoint.blue),
         colorOfPoint);
   }
 
