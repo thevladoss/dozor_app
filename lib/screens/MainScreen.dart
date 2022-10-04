@@ -28,25 +28,13 @@ class _MainScreenState extends State<MainScreen> {
         return;
       }
       setState(() {});
-    }).catchError((Object e) {
-      if (e is CameraException) {
-        switch (e.code) {
-          case 'CameraAccessDenied':
-            print('User denied camera access.');
-            break;
-          default:
-            print('Handle other errors.');
-            break;
-        }
-      }
-    });
+    }).catchError((Object e) {});
   }
 
 
 
   @override
   void dispose() {
-    print("loh");
     controller.dispose();
     super.dispose();
   }
@@ -71,13 +59,13 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             IconButton(
                 icon: const Icon(
-                  Icons.history,
+                  Icons.photo_outlined,
                 ),
                 onPressed: () {}),
             const Spacer(),
             IconButton(
                 icon: const Icon(
-                  Icons.settings,
+                  Icons.history,
                 ),
                 onPressed: () {}),
           ],

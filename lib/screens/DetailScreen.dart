@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:maslo_detector/painters/PointPainter.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -23,6 +24,10 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   List<int> imageDataList = List<int>.empty(growable: false);
   bool isLoading = false;
+  bool pointVisibility = false;
+  double x = 0.0;
+  double y = 0.0;
+  Color colorOfPoint = Colors.white;
   late Image image;
   final imageKey = GlobalKey();
   final onColorPicked = ValueNotifier<Pair<String, Color>>(
@@ -47,7 +52,7 @@ class _DetailScreenState extends State<DetailScreen> {
           RepaintBoundary(
             key: imageKey,
             child: PhotoView(
-              onTapDown: (_, event, photo) async {
+              onTapUp: (_, event, photo) async {
                 setState(() {
                   isLoading = true;
                 });
@@ -55,6 +60,19 @@ class _DetailScreenState extends State<DetailScreen> {
                 await getPixelColor(event.localPosition);
                 setState(() {
                   isLoading = false;
+                  pointVisibility = true;
+                  x = event.localPosition.dx;
+                  y = event.localPosition.dy;
+                });
+              },
+              onTapDown: (_, event, photo) {
+                setState(() {
+                  pointVisibility = false;
+                });
+              },
+              onScaleEnd: (_, event, photo) {
+                setState(() {
+                  pointVisibility = false;
                 });
               },
               minScale: PhotoViewComputedScale.covered,
@@ -64,6 +82,9 @@ class _DetailScreenState extends State<DetailScreen> {
               imageProvider: FileImage(File(widget.imagePath)),
             ),
           ),
+          (pointVisibility) ? CustomPaint(
+            painter: PointPainter(x: x, y: y, color: colorOfPoint),
+          ) : Container(),
           SlidingUpPanel(
             maxHeight: 280,
             minHeight: 80,
@@ -98,7 +119,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                     textStyle: const TextStyle(fontSize: 16.0)),
                                 textAlign: TextAlign.center,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 2.0,
                               ),
                               Text(
@@ -125,7 +146,9 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             ),
           ),
-          (isLoading) ? const LinearProgressIndicator() : Container()
+          (isLoading) ? const LinearProgressIndicator(
+            backgroundColor: Colors.transparent,
+          ) : Container()
         ],
       ),
     );
@@ -142,14 +165,16 @@ class _DetailScreenState extends State<DetailScreen> {
     final list = imageDataList;
     var i = y * (w * 4) + x * 4;
 
+    colorOfPoint = Color.fromARGB(
+      list[i + 3],
+      list[i],
+      list[i + 1],
+      list[i + 2],
+    );
+
     onColorPicked.value = Pair(
         await butterClassifier.predict(list[i + 3], list[i], list[i + 1]),
-        Color.fromARGB(
-          list[i + 3],
-          list[i],
-          list[i + 1],
-          list[i + 2],
-        ));
+        colorOfPoint);
   }
 
   Future<List<int>> captureImage() async {

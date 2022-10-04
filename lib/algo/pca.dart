@@ -1,10 +1,24 @@
 class PCAButter {
   List<double> transform(List<double> rgb) {
-    // Transform RGB to PCA space
+    // Transform scaled RGB to PCA space
     // Coefficents are from docs/1.1_TIS_EDA.ipynb
     return [
-      rgb[0] * -0.24520308 + rgb[1] * 0.11216704 + rgb[2] * 0.96296106,
-      rgb[0] * 0.7728561 + rgb[1] * 0.62228628 + rgb[2] * 0.12431103,
+      rgb[0] * -0.60146571 + rgb[1] * 0.33104085 + rgb[2] * 0.72708387,
+      rgb[0] * 0.53413964 + rgb[1] * 0.8434146 + rgb[2] * 0.05785026,
+    ];
+  }
+
+  List<double> scaleTransform(List<double> rgb) {
+    // Scale and Transform RGB to PCA space
+    // Coefficents are from docs/1.1_TIS_EDA.ipynb
+    const df_mean = [150.43750, 216.40625, 187.34375];
+    const df_std = [12.536238, 9.757906, 30.697914];
+    rgb = rgb
+        .map((e) => (e - df_mean[rgb.indexOf(e)]) / df_std[rgb.indexOf(e)])
+        .toList();
+    return [
+      rgb[0] * -0.60146571 + rgb[1] * 0.33104085 + rgb[2] * 0.72708387,
+      rgb[0] * 0.53413964 + rgb[1] * 0.8434146 + rgb[2] * 0.05785026,
     ];
   }
 
@@ -13,6 +27,15 @@ class PCAButter {
     List<List<double>> pcaRgbs = [];
     for (var rgb in rgbs) {
       pcaRgbs.add(transform(rgb));
+    }
+    return pcaRgbs;
+  }
+
+  List<List<double>> scaleListTransform(List<List<double>> rgbs) {
+    //Scale and Transform list of RGBs to PCA space
+    List<List<double>> pcaRgbs = [];
+    for (var rgb in rgbs) {
+      pcaRgbs.add(scaleTransform(rgb));
     }
     return pcaRgbs;
   }
