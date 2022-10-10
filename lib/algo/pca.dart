@@ -11,8 +11,8 @@ class PCAButter {
   List<double> scaleTransform(List<double> rgb) {
     // Scale and Transform RGB to PCA space
     // Coefficents are from docs/1.1_TIS_EDA.ipynb
-    const df_mean = [150.43750, 216.40625, 187.34375];
-    const df_std = [12.536238, 9.757906, 30.697914];
+    const df_mean = [194.7500, 217.2500, 222.3125];
+    const df_std = [10.069757, 9.525405, 19.434398];
     rgb = rgb
         .map((e) => (e - df_mean[rgb.indexOf(e)]) / df_std[rgb.indexOf(e)])
         .toList();
