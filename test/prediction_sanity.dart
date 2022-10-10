@@ -1,5 +1,5 @@
+import 'package:maslo_detector/algo/predict.dart';
 import 'package:test/test.dart';
-import 'package:butter_rgb_classification/predict.dart';
 import 'package:tuple/tuple.dart';
 
 void main() {
@@ -16,8 +16,15 @@ void main() {
   test('Predictions for cluster mean colors are correct', () {
     ButterClassifier butterClassifier = ButterClassifier(
       pathToCsv: 'data/butter_rgb_with_labels_numbers.csv',
-      labelTable: labels,
+      labelTable: const {
+        0: 'сливочное72',
+        1: 'фальсификат',
+        2: 'сливочное82',
+      },
     );
+    print(butterClassifier.predict(151, 203, 154));
+    print(butterClassifier.predict(130, 217, 234));
+    print(butterClassifier.predict(158, 223, 185));
 
     expect(butterClassifier.predict(151, 203, 154), labels[0]);
     expect(butterClassifier.predict(130, 217, 234), labels[1]);
@@ -26,7 +33,7 @@ void main() {
 
   test(
     'Predictions for given image in tg are correct',
-    () {
+    () async {
       ButterClassifier butterClassifier = ButterClassifier(
         pathToCsv: 'data/butter_rgb_with_labels_numbers.csv',
         labelTable: labels,
@@ -47,10 +54,9 @@ void main() {
       int correct = 0;
       List predcitions = [];
       List groundTruths = [];
-
       for (Tuple2<String, List> row in df) {
-        String label =
-            butterClassifier.predict(row.item2[0], row.item2[1], row.item2[2]);
+        String label = await butterClassifier.predict(
+            row.item2[0], row.item2[1], row.item2[2]);
         if (label == labels[2]) {
           label = labels[0]!;
         }
