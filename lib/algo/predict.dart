@@ -89,7 +89,7 @@ class ButterClassifier {
     final lol = _pca.scaleTransform(
         [r.roundToDouble(), g.roundToDouble(), b.roundToDouble()]);
     // int idxCluster = decisionTreeForward(lol[0], lol[1]);
-    int idxCluster = (1.19 * lol[0] + 0.63 * lol[1] - 0.82 < 0) ? 1 : 0;
+    int idxCluster = (1.19 * lol[0] + 0.63 * lol[1] - 0.82 >= 0) ? 1 : 0;
     String label = labelTable[idxCluster]!;
     return label;
   }
