@@ -70,7 +70,7 @@ flutter:
 
   # To add data to your application, add an data section, like this:
   assets:
-    - data/
+    - data/new_samples/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

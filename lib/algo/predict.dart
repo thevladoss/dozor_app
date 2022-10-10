@@ -14,11 +14,10 @@ class ButterClassifier {
   final String pathToCsv;
 
   ButterClassifier({
-    this.pathToCsv = 'data/butter_rgb_with_labels_numbers.csv',
+    this.pathToCsv = 'data/new_samples/butter_manual_raw_only_last.csv',
     this.labelTable = const {
-      0: 'Сливочное 72',
+      0: 'Сливочное',
       1: 'Фальсификат',
-      2: 'Сливочное 82',
     },
   });
 
