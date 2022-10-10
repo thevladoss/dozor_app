@@ -17,8 +17,8 @@ class PCAButter {
         .map((e) => (e - df_mean[rgb.indexOf(e)]) / df_std[rgb.indexOf(e)])
         .toList();
     return [
-      rgb[0] * -0.60146571 + rgb[1] * 0.33104085 + rgb[2] * 0.72708387,
-      rgb[0] * 0.53413964 + rgb[1] * 0.8434146 + rgb[2] * 0.05785026,
+      rgb[0] * -0.30217094 + rgb[1] * 0.58121613 + rgb[2] * 0.75556637,
+      rgb[0] * -0.812034 + rgb[1] * -0.57210075 + rgb[2] * 0.11533217,
     ];
   }
 
