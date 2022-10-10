@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:maslo_detector/screens/DetailScreen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -31,8 +32,6 @@ class _MainScreenState extends State<MainScreen> {
     }).catchError((Object e) {});
   }
 
-
-
   @override
   void dispose() {
     controller.dispose();
@@ -56,18 +55,33 @@ class _MainScreenState extends State<MainScreen> {
         color: Colors.lightGreen,
         shape: const CircularNotchedRectangle(),
         child: Row(
-          children: [
+          children: <Widget>[
+            SizedBox(
+              width: 4.0,
+            ),
             IconButton(
                 icon: const Icon(
                   Icons.photo_outlined,
+                  size: 30,
                 ),
-                onPressed: () {}),
+                onPressed: () async {
+                  XFile? pickedFile = await ImagePicker().pickImage(
+                    source: ImageSource.gallery,
+                  );
+                  if (pickedFile != null) {
+                    _openDetailScreen(path: pickedFile.path);
+                  }
+                }),
             const Spacer(),
             IconButton(
                 icon: const Icon(
                   Icons.history,
+                  size: 30,
                 ),
                 onPressed: () {}),
+            SizedBox(
+              width: 4.0,
+            ),
           ],
         ),
       ),
@@ -80,15 +94,22 @@ class _MainScreenState extends State<MainScreen> {
 
           if (!mounted) return;
 
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => DetailScreen(
-                imagePath: image.path,
-              ),
-            ),
-          );
+          _openDetailScreen(path: image.path);
         },
-        child: const Icon(Icons.camera_alt),
+        child: const Icon(
+          Icons.camera_alt,
+          size: 25,
+        ),
+      ),
+    );
+  }
+
+  _openDetailScreen({required String path}) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DetailScreen(
+          imagePath: path,
+        ),
       ),
     );
   }
