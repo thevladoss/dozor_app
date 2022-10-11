@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
-import 'package:meta/meta.dart';
 
 import '../algo/predict.dart';
 
@@ -15,10 +14,12 @@ class DetailCubit extends Cubit<DetailState> {
   final imageKey = GlobalKey();
   List<int> _imageDataList = List<int>.empty(growable: false);
 
+  bool _pointVisibility = false;
+  get pointVisibility => _pointVisibility;
+
   DetailCubit() : super(DetailInitial());
 
-
-  Future<void> getPixelColor(Offset position) async {
+  Future<void> predictionByPixel(Offset position) async {
     _imageDataList = await captureImage();
     if (_imageDataList.isEmpty) return;
 
@@ -41,6 +42,8 @@ class DetailCubit extends Cubit<DetailState> {
     String result = await butterClassifier.predict(
         pickedColor.red, pickedColor.green, pickedColor.blue);
 
+    _pointVisibility = true;
+
     emit(DetailInitiated(
         x: x.toDouble(),
         y: y.toDouble(),
@@ -50,9 +53,24 @@ class DetailCubit extends Cubit<DetailState> {
   }
 
   Future<List<int>> captureImage() async {
-    final ro = imageKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+    final ro =
+        imageKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
     _image = await ro.toImage();
     final bytes = (await _image.toByteData(format: ImageByteFormat.rawRgba))!;
+
     return bytes.buffer.asUint8List().toList(growable: false);
+  }
+
+  changeVisibilityOfPoint(DetailState state) {
+    _pointVisibility = false;
+
+    if (state is DetailInitiated) {
+      emit(DetailInitiated(
+          x: state.x,
+          y: state.y,
+          pickedColor: state.pickedColor,
+          resultColor: state.resultColor,
+          result: state.result));
+    }
   }
 }

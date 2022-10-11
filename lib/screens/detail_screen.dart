@@ -1,23 +1,18 @@
 import 'dart:io';
-import 'dart:ui';
 
-import 'package:flutter/material.dart' hide Image;
-import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maslo_detector/blocs/detail_cubit.dart';
-import 'package:maslo_detector/painters/PointPainter.dart';
+import 'package:maslo_detector/painters/point_painter.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../algo/predict.dart';
-import '../models/pair.dart';
-
 class DetailScreen extends StatelessWidget {
   final String imagePath;
 
-  DetailScreen({required this.imagePath, Key? key}) : super(key: key);
+  const DetailScreen({required this.imagePath, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +36,9 @@ class DetailScreen extends StatelessWidget {
                 RepaintBoundary(
                   key: ctx.read<DetailCubit>().imageKey,
                   child: PhotoView(
-                    onTapUp: (_, event, photo) => ctx.read<DetailCubit>().getPixelColor(event.localPosition),
-                    onTapDown: (_, event, photo) {
-                    },
-                    onScaleEnd: (_, event, photo) {
-                    },
+                    onTapUp: (_, event, photo) => ctx.read<DetailCubit>().predictionByPixel(event.localPosition),
+                    onTapDown: (_, event, photo) => ctx.read<DetailCubit>().changeVisibilityOfPoint(state),
+                    onScaleEnd: (_, event, photo) => ctx.read<DetailCubit>().changeVisibilityOfPoint(state),
                     minScale: PhotoViewComputedScale.covered,
                     backgroundDecoration:
                     const BoxDecoration(color: Colors.transparent),
@@ -55,7 +48,7 @@ class DetailScreen extends StatelessWidget {
                     imageProvider: FileImage(File(imagePath)),
                   ),
                 ),
-                (state is DetailInitiated)
+                (state is DetailInitiated && ctx.read<DetailCubit>().pointVisibility)
                     ? CustomPaint(
                   painter: PointPainter(
                       x: state.x,
@@ -114,7 +107,7 @@ class DetailScreen extends StatelessWidget {
                                 height: 2.0,
                               ),
                               Text(
-                                (state is DetailInitiated) ? state.result : 'Выберите пиксель',
+                                (state is DetailInitiated) ? state.result : AppLocalizations.of(context)!.selectPixel,
                                 style: GoogleFonts.openSans(
                                     height: 1.0,
                                     textStyle: const TextStyle(fontSize: 24.0),

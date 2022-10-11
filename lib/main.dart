@@ -1,9 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:maslo_detector/screens/MainScreen.dart';
+import 'package:maslo_detector/screens/main_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'algo/predict.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +20,7 @@ class MasloApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
-      title: 'maslo_detector',
+      title: 'maslo_classifier',
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),

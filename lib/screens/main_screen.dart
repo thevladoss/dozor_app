@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:maslo_detector/screens/DetailScreen.dart';
+import 'package:maslo_detector/screens/detail_screen.dart';
 
 class MainScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -56,7 +56,7 @@ class _MainScreenState extends State<MainScreen> {
         shape: const CircularNotchedRectangle(),
         child: Row(
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               width: 4.0,
             ),
             IconButton(
@@ -79,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
                   size: 30,
                 ),
                 onPressed: () {}),
-            SizedBox(
+            const SizedBox(
               width: 4.0,
             ),
           ],
