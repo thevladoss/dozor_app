@@ -4,8 +4,9 @@ class PointPainter extends CustomPainter {
   final double x;
   final double y;
   final Color color;
+  final Color colorRound;
 
-  PointPainter({required this.x, required this.y, required this.color});
+  PointPainter({required this.x, required this.y, required this.color, required this.colorRound});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -13,7 +14,7 @@ class PointPainter extends CustomPainter {
       ..color = color
       ..style = PaintingStyle.fill;
     var paintOutside = Paint()
-      ..color = Colors.lightGreen
+      ..color = colorRound
       ..style = PaintingStyle.fill;
 
     canvas

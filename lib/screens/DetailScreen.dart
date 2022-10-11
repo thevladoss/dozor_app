@@ -22,17 +22,17 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  List<int> imageDataList = List<int>.empty(growable: false);
-  bool isLoading = false;
-  bool pointVisibility = false;
-  double x = 0.0;
-  double y = 0.0;
-  Color colorOfPoint = Colors.white;
   late Image image;
   final imageKey = GlobalKey();
-  final onColorPicked = ValueNotifier<Pair<String, Color>>(
-      Pair('Выберите пиксель', Colors.black));
   final ButterClassifier butterClassifier = ButterClassifier();
+  List<int> _imageDataList = List<int>.empty(growable: false);
+  bool _isLoading = false;
+  bool _pointVisibility = false;
+  double _x = 0.0;
+  double _y = 0.0;
+  Color _pickedColor = Colors.black;
+  Color _resultColor = Colors.black;
+  String _result = 'Выберите пиксель';
 
   @override
   Widget build(BuildContext context) {
@@ -54,25 +54,25 @@ class _DetailScreenState extends State<DetailScreen> {
             child: PhotoView(
               onTapUp: (_, event, photo) async {
                 setState(() {
-                  isLoading = true;
+                  _isLoading = true;
                 });
-                imageDataList = await captureImage();
+                _imageDataList = await captureImage();
                 await getPixelColor(event.localPosition);
                 setState(() {
-                  isLoading = false;
-                  pointVisibility = true;
-                  x = event.localPosition.dx;
-                  y = event.localPosition.dy;
+                  _isLoading = false;
+                  _pointVisibility = true;
+                  _x = event.localPosition.dx;
+                  _y = event.localPosition.dy;
                 });
               },
               onTapDown: (_, event, photo) {
                 setState(() {
-                  pointVisibility = false;
+                  _pointVisibility = false;
                 });
               },
               onScaleEnd: (_, event, photo) {
                 setState(() {
-                  pointVisibility = false;
+                  _pointVisibility = false;
                 });
               },
               minScale: PhotoViewComputedScale.covered,
@@ -82,9 +82,12 @@ class _DetailScreenState extends State<DetailScreen> {
               imageProvider: FileImage(File(widget.imagePath)),
             ),
           ),
-          (pointVisibility) ? CustomPaint(
-            painter: PointPainter(x: x, y: y, color: colorOfPoint),
-          ) : Container(),
+          (_pointVisibility)
+              ? CustomPaint(
+                  painter: PointPainter(
+                      x: _x, y: _y, color: _pickedColor, colorRound: _resultColor),
+                )
+              : Container(),
           SlidingUpPanel(
             maxHeight: 280,
             minHeight: 80,
@@ -93,50 +96,59 @@ class _DetailScreenState extends State<DetailScreen> {
             padding: const EdgeInsets.all(16.0),
             panel: Column(
               children: <Widget>[
-                ValueListenableBuilder<Pair<String, Color>>(
-                    valueListenable: onColorPicked,
-                    builder: (_, pair, child) {
-                      return Row(
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: pair.color,
-                            ),
-                            height: 48,
-                            width: 48,
+                Row(
+                  children: <Widget>[
+                    Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _resultColor,
                           ),
-                          const SizedBox(
-                            width: 16.0,
+                          height: 48,
+                          width: 48,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _pickedColor,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "rgb(${pair.color.red}, ${pair.color.green}, ${pair.color.blue})",
-                                style: GoogleFonts.openSans(
-                                    height: 1.0,
-                                    textStyle: const TextStyle(fontSize: 16.0)),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                height: 2.0,
-                              ),
-                              Text(
-                                pair.result,
-                                style: GoogleFonts.openSans(
-                                    height: 1.0,
-                                    textStyle: const TextStyle(fontSize: 24.0),
-                                    fontWeight: FontWeight.w600),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          )
-                        ],
-                      );
-                    }),
+                          height: 40,
+                          width: 40,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 16.0,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "rgb(${_pickedColor.red}, ${_pickedColor.green}, ${_pickedColor.blue})",
+                          style: GoogleFonts.openSans(
+                              height: 1.0,
+                              textStyle: const TextStyle(fontSize: 16.0)),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(
+                          height: 2.0,
+                        ),
+                        Text(
+                          _result,
+                          style: GoogleFonts.openSans(
+                              height: 1.0,
+                              textStyle: const TextStyle(fontSize: 24.0),
+                              fontWeight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
                 const SizedBox(
                   height: 200,
                   child: Center(
@@ -146,35 +158,40 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             ),
           ),
-          (isLoading) ? const LinearProgressIndicator(
-            backgroundColor: Colors.transparent,
-          ) : Container()
+          (_isLoading)
+              ? const LinearProgressIndicator(
+                  backgroundColor: Colors.transparent,
+                )
+              : Container()
         ],
       ),
     );
   }
 
   Future<void> getPixelColor(Offset position) async {
-    if (imageDataList.isEmpty) return;
+    if (_imageDataList.isEmpty) return;
     final w = image.width;
     final h = image.height;
     final x = position.dx.round().clamp(0, w - 1);
 
     final y = position.dy.round().clamp(0, h - 1);
 
-    final list = imageDataList;
+    final list = _imageDataList;
     var i = y * (w * 4) + x * 4;
 
-    colorOfPoint = Color.fromARGB(
+    _pickedColor = Color.fromARGB(
       list[i + 3],
       list[i],
       list[i + 1],
       list[i + 2],
     );
 
-    onColorPicked.value = Pair(
-        await butterClassifier.predict(colorOfPoint.red, colorOfPoint.green, colorOfPoint.blue),
-        colorOfPoint);
+    _result = await butterClassifier.predict(
+        _pickedColor.red, _pickedColor.green, _pickedColor.blue);
+
+    _resultColor = (_result == 'Фальсификат')
+        ? Colors.red
+        : Colors.green;
   }
 
   Future<List<int>> captureImage() async {
