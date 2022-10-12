@@ -39,10 +39,11 @@ class OilClassifier {
   }
 }
 
-void main() {
+void main() async {
   print('Hello, OilClassifier!');
   OilClassifier oilClassifier = OilClassifier();
   // Test color means
-  print(oilClassifier.predict(99, 197, 236)); // Это подсолнечка
-  print(oilClassifier.predict(242, 169, 121)); // Это олвки
+  print(await oilClassifier.predict(99, 197, 236)); // Это подсолнечка
+  print(await oilClassifier.predict(242, 169, 121)); // Это олвки
+  print(await oilClassifier.predict(236, 207, 209)); // Это среднее
 }
