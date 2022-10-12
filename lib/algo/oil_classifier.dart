@@ -27,20 +27,14 @@ class OilClassifier {
     double proba = 1 / (1 + exp(-(0.36 + 1.58 * pca[0] - 0.2 * pca[1])));
 
     // TODO: Test coefs for middle on real data
-    if (!predictMiddle) {
-      if (proba > 0.5) {
-        return labelTable[1]!;
-      } else {
-        return labelTable[0]!;
-      }
+    if (predictMiddle && proba > 0.34 && proba < 0.65) {
+      return labelTable[2]!;
+    }
+
+    if (proba > 0.5) {
+      return labelTable[1]!;
     } else {
-      if (proba >= 0.66) {
-        return labelTable[1]!;
-      } else if (proba <= 0.33) {
-        return labelTable[0]!;
-      } else {
-        return labelTable[2]!;
-      }
+      return labelTable[0]!;
     }
   }
 }
