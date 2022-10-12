@@ -1,4 +1,4 @@
-import 'package:maslo_detector/algo/predict.dart';
+import 'package:maslo_detector/algo/butter_counterfeit_classifier.dart';
 import 'package:test/test.dart';
 import 'package:tuple/tuple.dart';
 
@@ -14,8 +14,7 @@ void main() {
   };
 
   test('Predictions for cluster mean colors are correct', () {
-    ButterClassifier butterClassifier = ButterClassifier(
-      pathToCsv: 'data/butter_rgb_with_labels_numbers.csv',
+    ButterCounterfeitClassifier butterClassifier = ButterCounterfeitClassifier(
       labelTable: const {
         0: 'сливочное72',
         1: 'фальсификат',
@@ -34,8 +33,8 @@ void main() {
   test(
     'Predictions for given image in tg are correct',
     () async {
-      ButterClassifier butterClassifier = ButterClassifier(
-        pathToCsv: 'data/butter_rgb_with_labels_numbers.csv',
+      ButterCounterfeitClassifier butterClassifier =
+          ButterCounterfeitClassifier(
         labelTable: labels,
       );
       // Сверху вниз на картинке

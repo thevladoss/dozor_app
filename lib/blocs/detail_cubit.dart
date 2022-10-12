@@ -4,12 +4,13 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 
-import '../algo/predict.dart';
+import '../algo/butter_counterfeit_classifier.dart';
 
 part 'detail_state.dart';
 
 class DetailCubit extends Cubit<DetailState> {
-  final ButterClassifier butterClassifier = ButterClassifier();
+  final ButterCounterfeitClassifier butterClassifier =
+      ButterCounterfeitClassifier();
   late Image _image;
   final imageKey = GlobalKey();
   List<int> _imageDataList = List<int>.empty(growable: false);
