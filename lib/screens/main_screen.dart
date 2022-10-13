@@ -78,7 +78,9 @@ class _MainScreenState extends State<MainScreen> {
                   Icons.history,
                   size: 30,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+
+                }),
             const SizedBox(
               width: 4.0,
             ),
