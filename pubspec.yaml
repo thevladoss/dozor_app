@@ -68,11 +68,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+
+
   generate: true
 
   # To add data to your application, add an data section, like this:
   assets:
     - data/new_samples/
+    - img/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

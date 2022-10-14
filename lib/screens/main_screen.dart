@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:maslo_detector/screens/about_screen.dart';
 import 'package:maslo_detector/screens/detail_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -44,6 +45,7 @@ class _MainScreenState extends State<MainScreen> {
       return Container();
     }
     return Scaffold(
+
       body: Transform.scale(
         scale: 1 /
             (controller.value.aspectRatio *
@@ -75,11 +77,12 @@ class _MainScreenState extends State<MainScreen> {
             const Spacer(),
             IconButton(
                 icon: const Icon(
-                  Icons.history,
+                  Icons.info_outline,
                   size: 30,
                 ),
                 onPressed: () {
-
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AboutScreen()));
                 }),
             const SizedBox(
               width: 4.0,
