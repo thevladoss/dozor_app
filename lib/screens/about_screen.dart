@@ -21,15 +21,15 @@ class AboutScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('img/ArmsGreen.png',
-                  width: 200,
-                  height: 200,),
+                  width: 170,
+                  height: 170,),
                   Image.asset('img/ArmsBlue.png',
-                  width: 200,
-                  height: 200,)
+                  width: 170,
+                  height: 170,)
                 ],
               ),
               SizedBox(height: 25),
-              Text('Dazor', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),),
+              Text('Dozor', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),),
               SizedBox(height: 10),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
@@ -37,7 +37,8 @@ class AboutScreen extends StatelessWidget {
                 textAlign: TextAlign.center,),
               ),
               Spacer(),
-              Text("Весряи 1.0.0")
+              Text("Весряи 1.0.0"),
+              SizedBox(height: 15,)
             ],
 
           ),
