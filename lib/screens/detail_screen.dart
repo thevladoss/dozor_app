@@ -147,7 +147,9 @@ class DetailScreen extends StatelessWidget {
                       foregroundColor: Colors.white,
                       children: [
                         SpeedDialChild(
-                            child: const Icon(Icons.pets),
+                            child: const ImageIcon(
+                              AssetImage('img/FakeButterDetectionIcon.png'),
+                            ),
                             backgroundColor: Colors.lightGreen,
                             foregroundColor: Colors.white,
                             label: AppLocalizations.of(context)!.butterText,
@@ -155,7 +157,9 @@ class DetailScreen extends StatelessWidget {
                                 .read<DetailBloc>()
                                 .add(DetailSetButterMode())),
                         SpeedDialChild(
-                            child: const Icon(Icons.grass),
+                            child: const ImageIcon(
+                              AssetImage('img/VegOilRegressionIcon.png'),
+                            ),
                             backgroundColor: Colors.lightGreen,
                             foregroundColor: Colors.white,
                             label: AppLocalizations.of(context)!.oilText,
