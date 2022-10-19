@@ -149,6 +149,7 @@ class DetailScreen extends StatelessWidget {
                         SpeedDialChild(
                             child: const ImageIcon(
                               AssetImage('img/FakeButterDetectionIcon.png'),
+                              size: 35,
                             ),
                             backgroundColor: Colors.lightGreen,
                             foregroundColor: Colors.white,
@@ -159,6 +160,7 @@ class DetailScreen extends StatelessWidget {
                         SpeedDialChild(
                             child: const ImageIcon(
                               AssetImage('img/VegOilRegressionIcon.png'),
+                              size: 80,
                             ),
                             backgroundColor: Colors.lightGreen,
                             foregroundColor: Colors.white,
@@ -166,7 +168,7 @@ class DetailScreen extends StatelessWidget {
                             onTap: () =>
                                 ctx.read<DetailBloc>().add(DetailSetOilMode())),
                       ]),
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   )
                 ],
