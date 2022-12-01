@@ -8,7 +8,7 @@ import 'package:photo_view/photo_view.dart';
 
 import '../blocs/detail_bloc.dart';
 import '../generated/l10n.dart';
-import '../painters/point_painter.dart';
+import '../ui/Painters.dart';
 
 class DetailScreen extends StatelessWidget {
   final String imagePath;

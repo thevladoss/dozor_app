@@ -5,7 +5,7 @@ import 'package:flutter_simple_dependency_injection/injector.dart';
 
 import 'common_setup/ModuleContainer.dart';
 import 'generated/l10n.dart';
-import 'screens/main_screen.dart';
+import 'screens/MainScreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

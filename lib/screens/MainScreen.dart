@@ -2,8 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'about_screen.dart';
-import 'detail_screen.dart';
+import 'AboutScreen.dart';
+import 'DetailScreen.dart';
 
 class MainScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
