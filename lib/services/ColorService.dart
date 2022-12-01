@@ -6,6 +6,18 @@ class ColorService {
   }
 
   Color primaryColor() {
-    return const Color(0xff003791);
+    return const Color(0xff1657A1);
+  }
+
+  Color secondaryPinkColor() {
+    return const Color(0xffF5727A);
+  }
+
+  Color secondaryWhiteColor() {
+    return const Color(0xffEEF2FA);
+  }
+
+  Color secondaryGrayColor() {
+    return const Color(0xff4E4E4D);
   }
 }

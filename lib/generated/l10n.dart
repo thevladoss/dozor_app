@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Dozor`
+  String get appName {
+    return Intl.message(
+      'Dozor',
+      name: 'appName',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Анализ масла`
   String get detailTitle {
     return Intl.message(
@@ -85,6 +95,36 @@ class S {
     return Intl.message(
       'Выберите пиксель',
       name: 'selectPixel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `О приложении`
+  String get aboutScreenAppBarTitleText {
+    return Intl.message(
+      'О приложении',
+      name: 'aboutScreenAppBarTitleText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Россельхознадзор - федеральная служба по ветеринарному и фитосанитарному надзору`
+  String get aboutScreenFederalServiceInfoText {
+    return Intl.message(
+      'Россельхознадзор - федеральная служба по ветеринарному и фитосанитарному надзору',
+      name: 'aboutScreenFederalServiceInfoText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Весрия 1.0.0`
+  String get aboutScreenVersionText {
+    return Intl.message(
+      'Весрия 1.0.0',
+      name: 'aboutScreenVersionText',
       desc: '',
       args: [],
     );
