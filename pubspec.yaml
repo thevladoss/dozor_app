@@ -25,6 +25,7 @@ dependencies:
   tuple: ^2.0.0
   flutter_bloc: ^8.1.1
   flutter_speed_dial: ^6.1.0+1
+  flutter_simple_dependency_injection: ^2.0.0
 
 dev_dependencies:
   flutter_test:
