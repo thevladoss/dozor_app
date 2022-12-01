@@ -1,8 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:maslo_detector/screens/about_screen.dart';
-import 'package:maslo_detector/screens/detail_screen.dart';
+
+import 'about_screen.dart';
+import 'detail_screen.dart';
 
 class MainScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -45,7 +46,6 @@ class _MainScreenState extends State<MainScreen> {
       return Container();
     }
     return Scaffold(
-
       body: Transform.scale(
         scale: 1 /
             (controller.value.aspectRatio *

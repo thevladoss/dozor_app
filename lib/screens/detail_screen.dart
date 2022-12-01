@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:maslo_detector/painters/point_painter.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../blocs/detail_bloc.dart';
+import '../generated/l10n.dart';
+import '../painters/point_painter.dart';
 
 class DetailScreen extends StatelessWidget {
   final String imagePath;
@@ -26,7 +25,7 @@ class DetailScreen extends StatelessWidget {
               appBar: AppBar(
                 centerTitle: true,
                 title: Text(
-                  AppLocalizations.of(context)!.detailTitle,
+                  S.current.detailTitle,
                   style: GoogleFonts.openSans(
                       height: 1.0,
                       textStyle: const TextStyle(
@@ -62,79 +61,71 @@ class DetailScreen extends StatelessWidget {
                               colorRound: ctx.read<DetailBloc>().resultColor),
                         )
                       : Container(),
-                  SlidingUpPanel(
-                    maxHeight: 280,
-                    minHeight: 80,
-                    color: Colors.white,
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(20)),
-                    padding: const EdgeInsets.all(16.0),
-                    panel: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Stack(
-                              alignment: Alignment.center,
-                              children: <Widget>[
-                                Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ctx.read<DetailBloc>().resultColor,
-                                  ),
-                                  height: 48,
-                                  width: 48,
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 80,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20)),
+                      ),
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        children: <Widget>[
+                          Stack(
+                            alignment: Alignment.center,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: ctx.read<DetailBloc>().resultColor,
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ctx.read<DetailBloc>().pickedColor,
-                                  ),
-                                  height: 40,
-                                  width: 40,
+                                height: 48,
+                                width: 48,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: ctx.read<DetailBloc>().pickedColor,
+                                ),
+                                height: 40,
+                                width: 40,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 16.0,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'rgb(${ctx.read<DetailBloc>().pickedColor.red}, ${ctx.read<DetailBloc>().pickedColor.green}, ${ctx.read<DetailBloc>().pickedColor.blue})',
+                                  style: GoogleFonts.openSans(
+                                      height: 1.0,
+                                      textStyle: const TextStyle(fontSize: 16.0)),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(
+                                  height: 2.0,
+                                ),
+                                Text(
+                                  ctx.read<DetailBloc>().result,
+                                  style: GoogleFonts.openSans(
+                                      height: 1.0,
+                                      textStyle: const TextStyle(fontSize: 24.0),
+                                      fontWeight: FontWeight.w600),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              width: 16.0,
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'rgb(${ctx.read<DetailBloc>().pickedColor.red}, ${ctx.read<DetailBloc>().pickedColor.green}, ${ctx.read<DetailBloc>().pickedColor.blue})',
-                                    style: GoogleFonts.openSans(
-                                        height: 1.0,
-                                        textStyle:
-                                            const TextStyle(fontSize: 16.0)),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(
-                                    height: 2.0,
-                                  ),
-                                  Text(
-                                    ctx.read<DetailBloc>().result,
-                                    style: GoogleFonts.openSans(
-                                        height: 1.0,
-                                        textStyle:
-                                            const TextStyle(fontSize: 24.0),
-                                        fontWeight: FontWeight.w600),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 200,
-                          child: Center(
-                            child: Text(''),
-                          ),
-                        ),
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -143,7 +134,11 @@ class DetailScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   SpeedDial(
-                      icon: (state is DetailButter) ? Icons.pets : Icons.grass,
+                      overlayOpacity: 0.3,
+                      overlayColor: Colors.black,
+                      activeIcon: Icons.arrow_drop_down,
+                      icon: Icons.arrow_drop_up,
+                      iconTheme: const IconThemeData(size: 40),
                       foregroundColor: Colors.white,
                       children: [
                         SpeedDialChild(
@@ -153,7 +148,9 @@ class DetailScreen extends StatelessWidget {
                             ),
                             backgroundColor: Colors.lightGreen,
                             foregroundColor: Colors.white,
-                            label: AppLocalizations.of(context)!.butterText,
+                            label: S.current.butterText,
+                            labelStyle: GoogleFonts.openSans(
+                                fontWeight: FontWeight.w600),
                             onTap: () => ctx
                                 .read<DetailBloc>()
                                 .add(DetailSetButterMode())),
@@ -164,7 +161,9 @@ class DetailScreen extends StatelessWidget {
                             ),
                             backgroundColor: Colors.lightGreen,
                             foregroundColor: Colors.white,
-                            label: AppLocalizations.of(context)!.oilText,
+                            label: S.current.oilText,
+                            labelStyle: GoogleFonts.openSans(
+                                fontWeight: FontWeight.w600),
                             onTap: () =>
                                 ctx.read<DetailBloc>().add(DetailSetOilMode())),
                       ]),

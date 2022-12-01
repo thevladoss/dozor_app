@@ -1,4 +1,4 @@
-import 'package:maslo_detector/algo/butter_counterfeit_classifier.dart';
+import 'package:DoZor/algo/butter_counterfeit_classifier.dart';
 import 'package:test/test.dart';
 import 'package:tuple/tuple.dart';
 
