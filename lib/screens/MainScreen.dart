@@ -1,9 +1,11 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_simple_dependency_injection/injector.dart';
 
 import 'AboutScreen.dart';
 import 'DetailScreen.dart';
+import '../services/ColorService.dart';
 
 class MainScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -15,6 +17,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final colorService = Injector().get<ColorService>();
+
   late CameraController controller;
   late Future<void> _initializeControllerFuture;
 
@@ -54,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
         child: CameraPreview(controller),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.lightGreen,
+        color: colorService.primaryColor(),
         shape: const CircularNotchedRectangle(),
         child: Row(
           children: <Widget>[
@@ -62,18 +66,19 @@ class _MainScreenState extends State<MainScreen> {
               width: 4.0,
             ),
             IconButton(
-                icon: const Icon(
-                  Icons.photo_outlined,
-                  size: 30,
-                ),
-                onPressed: () async {
-                  XFile? pickedFile = await ImagePicker().pickImage(
-                    source: ImageSource.gallery,
-                  );
-                  if (pickedFile != null) {
-                    _openDetailScreen(path: pickedFile.path);
-                  }
-                }),
+              icon: const Icon(
+                Icons.photo_outlined,
+                size: 30,
+              ),
+              onPressed: () async {
+                XFile? pickedFile = await ImagePicker().pickImage(
+                  source: ImageSource.gallery,
+                );
+                if (pickedFile != null) {
+                  _openDetailScreen(path: pickedFile.path);
+                }
+              },
+            ),
             const Spacer(),
             IconButton(
                 icon: const Icon(
@@ -101,6 +106,7 @@ class _MainScreenState extends State<MainScreen> {
 
           _openDetailScreen(path: image.path);
         },
+        backgroundColor: colorService.primaryColor(),
         child: const Icon(
           Icons.camera_alt,
           size: 25,
