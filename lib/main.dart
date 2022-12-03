@@ -1,3 +1,4 @@
+import 'package:DoZor/services/ColorService.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,13 +16,18 @@ Future<void> main() async {
 }
 
 class MasloApp extends StatelessWidget {
+  final colorService = Injector().get<ColorService>();
+
   final List<CameraDescription> cameras;
 
-  const MasloApp({required this.cameras, Key? key}) : super(key: key);
+  MasloApp({required this.cameras, Key? key}) : super(key: key);
+  
+  // MaterialColor mainColor = MaterialColor(0xff1657A1, color)
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -32,7 +38,6 @@ class MasloApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'DoZor',
       theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
       ),
       home: MainScreen(cameras: cameras),
     );

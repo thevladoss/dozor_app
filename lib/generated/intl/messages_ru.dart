@@ -25,9 +25,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutScreenAppBarTitleText":
             MessageLookupByLibrary.simpleMessage("О приложении"),
         "aboutScreenFederalServiceInfoText": MessageLookupByLibrary.simpleMessage(
-            "Россельхознадзор - федеральная служба по ветеринарному и фитосанитарному надзору"),
+            "Россельхознадзор — федеральная служба по ветеринарному и фитосанитарному надзору"),
         "aboutScreenVersionText":
-            MessageLookupByLibrary.simpleMessage("Весрия 1.0.0"),
+            MessageLookupByLibrary.simpleMessage("Версия 1.0.0"),
         "appName": MessageLookupByLibrary.simpleMessage("Dozor"),
         "butterText": MessageLookupByLibrary.simpleMessage("Сливочное масло"),
         "detailTitle": MessageLookupByLibrary.simpleMessage("Анализ масла"),

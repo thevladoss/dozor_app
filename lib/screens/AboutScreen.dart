@@ -23,7 +23,7 @@ class AboutScreen extends StatelessWidget {
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Spacer(),
               _centralLogoRow(),
               SizedBox(height: 25),
@@ -43,7 +43,7 @@ class AboutScreen extends StatelessWidget {
   Widget _centralLogoRow() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: <Widget>[
         Image.asset(
           A.assetsArmsGreenIcon,
           width: 170,
@@ -60,7 +60,7 @@ class AboutScreen extends StatelessWidget {
 
   Widget _centralAppDescription() {
     return Column(
-      children: [
+      children: <Widget>[
         Text(
           S.current.appName,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),

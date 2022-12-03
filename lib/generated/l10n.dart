@@ -110,20 +110,20 @@ class S {
     );
   }
 
-  /// `Россельхознадзор - федеральная служба по ветеринарному и фитосанитарному надзору`
+  /// `Россельхознадзор — федеральная служба по ветеринарному и фитосанитарному надзору`
   String get aboutScreenFederalServiceInfoText {
     return Intl.message(
-      'Россельхознадзор - федеральная служба по ветеринарному и фитосанитарному надзору',
+      'Россельхознадзор — федеральная служба по ветеринарному и фитосанитарному надзору',
       name: 'aboutScreenFederalServiceInfoText',
       desc: '',
       args: [],
     );
   }
 
-  /// `Весрия 1.0.0`
+  /// `Версия 1.0.0`
   String get aboutScreenVersionText {
     return Intl.message(
-      'Весрия 1.0.0',
+      'Версия 1.0.0',
       name: 'aboutScreenVersionText',
       desc: '',
       args: [],
