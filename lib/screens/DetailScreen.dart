@@ -37,7 +37,7 @@ class DetailScreen extends StatelessWidget {
                   fontSize: 20.0,
                   fontFamily: fontService.openSans,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
             ),
