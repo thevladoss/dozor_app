@@ -6,5 +6,9 @@
   "selectPixel": "Выберите пиксель",
   "aboutScreenAppBarTitleText": "О приложении",
   "aboutScreenFederalServiceInfoText": "Россельхознадзор — федеральная служба по ветеринарному и фитосанитарному надзору",
-  "aboutScreenVersionText": "Версия 1.0.0"
+  "aboutScreenVersionText": "Версия 1.0.0",
+  "aboutScreenDevelopedBy": "Developed by banalno dev",
+  "aboutScreenContactDevelopers": "Cвязь с разработчиком",
+  "detailScreenSelectPixel": "Выберите пиксель",
+  "detailScreenFalsification": "Фальсификат"
 }

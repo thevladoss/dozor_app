@@ -129,6 +129,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Developed by banalno dev`
+  String get aboutScreenDevelopedBy {
+    return Intl.message(
+      'Developed by banalno dev',
+      name: 'aboutScreenDevelopedBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cвязь с разработчиком`
+  String get aboutScreenContactDevelopers {
+    return Intl.message(
+      'Cвязь с разработчиком',
+      name: 'aboutScreenContactDevelopers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выберите пиксель`
+  String get detailScreenSelectPixel {
+    return Intl.message(
+      'Выберите пиксель',
+      name: 'detailScreenSelectPixel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Фальсификат`
+  String get detailScreenFalsification {
+    return Intl.message(
+      'Фальсификат',
+      name: 'detailScreenFalsification',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

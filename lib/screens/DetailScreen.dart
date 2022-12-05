@@ -3,18 +3,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
 
 import '../blocs/detail_bloc.dart';
 import '../generated/l10n.dart';
+import '../services/FontService.dart';
 import '../ui/Painters.dart';
 import '../common_setup/Assets.dart';
 import '../services/ColorService.dart';
 
 class DetailScreen extends StatelessWidget {
   final colorService = Injector().get<ColorService>();
+  final fontService = Injector().get<FontService>();
 
   final String imagePath;
 
@@ -32,13 +33,11 @@ class DetailScreen extends StatelessWidget {
               backgroundColor: colorService.primaryColor(),
               title: Text(
                 S.current.detailTitle,
-                style: GoogleFonts.openSans(
-                  height: 1.0,
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: fontService.openSans,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -112,19 +111,19 @@ class DetailScreen extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 'rgb(${ctx.read<DetailBloc>().pickedColor.red}, ${ctx.read<DetailBloc>().pickedColor.green}, ${ctx.read<DetailBloc>().pickedColor.blue})',
-                                style: GoogleFonts.openSans(
-                                    height: 1.0,
-                                    textStyle: const TextStyle(fontSize: 16.0)),
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontFamily: fontService.openSans),
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(
-                                height: 2.0,
+                                height: 1.0,
                               ),
                               Text(
                                 ctx.read<DetailBloc>().result,
-                                style: GoogleFonts.openSans(
-                                    height: 1.0,
-                                    textStyle: const TextStyle(fontSize: 24.0),
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontFamily: fontService.openSans,
                                     fontWeight: FontWeight.w600),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -159,8 +158,9 @@ class DetailScreen extends StatelessWidget {
                       backgroundColor: colorService.primaryColor(),
                       foregroundColor: Colors.white,
                       label: S.current.butterText,
-                      labelStyle:
-                          GoogleFonts.openSans(fontWeight: FontWeight.w600),
+                      labelStyle: TextStyle(
+                          fontFamily: fontService.openSans,
+                          fontWeight: FontWeight.w600),
                       onTap: () =>
                           ctx.read<DetailBloc>().add(DetailSetButterMode()),
                     ),
@@ -172,8 +172,9 @@ class DetailScreen extends StatelessWidget {
                       backgroundColor: colorService.primaryColor(),
                       foregroundColor: Colors.white,
                       label: S.current.oilText,
-                      labelStyle:
-                          GoogleFonts.openSans(fontWeight: FontWeight.w600),
+                      labelStyle: TextStyle(
+                          fontFamily: fontService.openSans,
+                          fontWeight: FontWeight.w600),
                       onTap: () =>
                           ctx.read<DetailBloc>().add(DetailSetOilMode()),
                     ),

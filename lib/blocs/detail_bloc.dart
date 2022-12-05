@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../algo/butter_counterfeit_classifier.dart';
 import '../algo/oil_classifier.dart';
+import '../generated/l10n.dart';
 
 part 'detail_event.dart';
 
@@ -21,7 +22,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   double y = 0.0;
   Color pickedColor = Colors.black;
   Color resultColor = Colors.black;
-  String result = 'Выберите пиксель';
+  String result = S.current.detailScreenSelectPixel;
   bool pointVisibility = false;
 
 
@@ -68,7 +69,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
         pickedColor.red, pickedColor.green, pickedColor.blue);
 
 
-    resultColor = (result == 'Фальсификат') ? Colors.red : Colors.green;
+    resultColor = (result == S.current.detailScreenFalsification) ? Colors.red : Colors.green;
 
     pointVisibility = true;
   }
