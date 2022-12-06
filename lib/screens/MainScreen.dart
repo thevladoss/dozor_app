@@ -68,6 +68,7 @@ class _MainScreenState extends State<MainScreen> {
             IconButton(
               icon: const Icon(
                 Icons.photo_outlined,
+                color: Colors.white,
                 size: 30,
               ),
               onPressed: () async {
@@ -83,6 +84,7 @@ class _MainScreenState extends State<MainScreen> {
             IconButton(
                 icon: const Icon(
                   Icons.info_outline,
+                  color: Colors.white,
                   size: 30,
                 ),
                 onPressed: () {

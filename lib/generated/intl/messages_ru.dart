@@ -24,12 +24,20 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutScreenAppBarTitleText":
             MessageLookupByLibrary.simpleMessage("О приложении"),
+        "aboutScreenContactDevelopers":
+            MessageLookupByLibrary.simpleMessage("Cвязь с разработчиком"),
+        "aboutScreenDevelopedBy": MessageLookupByLibrary.simpleMessage(
+            "Разработчики: Илья Тампио и Владислав Осин"),
         "aboutScreenFederalServiceInfoText": MessageLookupByLibrary.simpleMessage(
             "Россельхознадзор — федеральная служба по ветеринарному и фитосанитарному надзору"),
         "aboutScreenVersionText":
             MessageLookupByLibrary.simpleMessage("Версия 1.0.0"),
         "appName": MessageLookupByLibrary.simpleMessage("Dozor"),
         "butterText": MessageLookupByLibrary.simpleMessage("Сливочное масло"),
+        "detailScreenFalsification":
+            MessageLookupByLibrary.simpleMessage("Фальсификат"),
+        "detailScreenSelectPixel":
+            MessageLookupByLibrary.simpleMessage("Выберите пиксель"),
         "detailTitle": MessageLookupByLibrary.simpleMessage("Анализ масла"),
         "oilText": MessageLookupByLibrary.simpleMessage("Растительное масло"),
         "selectPixel": MessageLookupByLibrary.simpleMessage("Выберите пиксель")

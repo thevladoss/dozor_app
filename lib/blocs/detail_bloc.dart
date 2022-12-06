@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:DoZor/algo/oil_regressor.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../algo/butter_counterfeit_classifier.dart';
 import '../algo/oil_classifier.dart';
+import '../generated/l10n.dart';
 
 part 'detail_event.dart';
 
@@ -15,13 +17,13 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   final imageKey = GlobalKey();
   List<int> _imageDataList = List<int>.empty(growable: false);
   ButterCounterfeitClassifier butterClassifier = ButterCounterfeitClassifier();
-  OilClassifier oilClassifier = OilClassifier();
+  OilRegressor oilClassifier = OilRegressor();
   bool _isButter = true;
   double x = 0.0;
   double y = 0.0;
   Color pickedColor = Colors.black;
   Color resultColor = Colors.black;
-  String result = 'Выберите пиксель';
+  String result = S.current.detailScreenSelectPixel;
   bool pointVisibility = false;
 
 
@@ -67,8 +69,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
         pickedColor.red, pickedColor.green, pickedColor.blue) : await oilClassifier.predict(
         pickedColor.red, pickedColor.green, pickedColor.blue);
 
-
-    resultColor = (result == 'Фальсификат') ? Colors.red : Colors.green;
+    resultColor = (result == S.current.detailScreenFalsification) ? Colors.red : Colors.green;
 
     pointVisibility = true;
   }
