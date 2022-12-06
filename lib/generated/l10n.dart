@@ -130,10 +130,10 @@ class S {
     );
   }
 
-  /// `Developed by banalno dev`
+  /// `Разработчики: Илья Тампио и Владислав Осин`
   String get aboutScreenDevelopedBy {
     return Intl.message(
-      'Developed by banalno dev',
+      'Разработчики: Илья Тампио и Владислав Осин',
       name: 'aboutScreenDevelopedBy',
       desc: '',
       args: [],

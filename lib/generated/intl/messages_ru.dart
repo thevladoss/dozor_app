@@ -26,8 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("О приложении"),
         "aboutScreenContactDevelopers":
             MessageLookupByLibrary.simpleMessage("Cвязь с разработчиком"),
-        "aboutScreenDevelopedBy":
-            MessageLookupByLibrary.simpleMessage("Developed by banalno dev"),
+        "aboutScreenDevelopedBy": MessageLookupByLibrary.simpleMessage(
+            "Разработчики: Илья Тампио и Владислав Осин"),
         "aboutScreenFederalServiceInfoText": MessageLookupByLibrary.simpleMessage(
             "Россельхознадзор — федеральная служба по ветеринарному и фитосанитарному надзору"),
         "aboutScreenVersionText":

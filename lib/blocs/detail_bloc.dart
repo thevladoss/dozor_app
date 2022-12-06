@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:DoZor/algo/oil_regressor.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   final imageKey = GlobalKey();
   List<int> _imageDataList = List<int>.empty(growable: false);
   ButterCounterfeitClassifier butterClassifier = ButterCounterfeitClassifier();
-  OilClassifier oilClassifier = OilClassifier();
+  OilRegressor oilClassifier = OilRegressor();
   bool _isButter = true;
   double x = 0.0;
   double y = 0.0;
@@ -67,7 +68,6 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     result = (_isButter) ? await butterClassifier.predict(
         pickedColor.red, pickedColor.green, pickedColor.blue) : await oilClassifier.predict(
         pickedColor.red, pickedColor.green, pickedColor.blue);
-
 
     resultColor = (result == S.current.detailScreenFalsification) ? Colors.red : Colors.green;
 

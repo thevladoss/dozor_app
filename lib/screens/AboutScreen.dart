@@ -152,6 +152,7 @@ class AboutScreen extends StatelessWidget {
         ),
         Text(
           S.current.aboutScreenDevelopedBy,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,
             fontFamily: fontService.openSans,
