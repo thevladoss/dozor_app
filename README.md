@@ -15,7 +15,7 @@
 
 О приложении                    | Доступные режимы          
 :-------------------------:|:-------------------------:|
-![image](https://user-images.githubusercontent.com/53406289/208452878-b34ad0dd-6e36-4af4-a6e2-7edb6dc1512f.png)  |  ![image](https://user-images.githubusercontent.com/53406289/208453081-d0f17be6-d50c-425f-9a00-047a289929d8.png)
+![image](https://user-images.githubusercontent.com/53406289/208456460-6fc33fb2-6631-4884-8629-8ad1a1cea674.png)  |  ![image](https://user-images.githubusercontent.com/53406289/208456822-b51f5e06-8ae9-4e83-bd4b-f2f793ae0b56.png)
 
 Подсолнечное            | Оливковое           | Смесь масел                   
 :-------------------------:|:-------------------------:|:-------------------------:
