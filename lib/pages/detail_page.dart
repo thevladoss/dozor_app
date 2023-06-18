@@ -8,13 +8,12 @@ import 'package:flutter_simple_dependency_injection/injector.dart';
 
 import '../blocs/detail_bloc.dart';
 import '../generated/l10n.dart';
-import '../services/color_service.dart';
 import '../services/font_service.dart';
 import '../ui/Painters.dart';
+import '../utils/app_colors.dart';
 import '../utils/app_images.dart';
 
 class DetailPage extends StatelessWidget {
-  final colorService = Injector().get<ColorService>();
   final fontService = Injector().get<FontService>();
 
   final String imagePath;
@@ -30,7 +29,7 @@ class DetailPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: colorService.primaryColor(),
+              backgroundColor: AppColors.primary,
               title: Text(
                 S.current.detailTitle,
                 style: TextStyle(
@@ -147,7 +146,7 @@ class DetailPage extends StatelessWidget {
                   activeIcon: Icons.arrow_drop_down,
                   icon: Icons.arrow_drop_up,
                   iconTheme: const IconThemeData(size: 40),
-                  backgroundColor: colorService.primaryColor(),
+                  backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   children: [
                     SpeedDialChild(
@@ -155,7 +154,7 @@ class DetailPage extends StatelessWidget {
                         AssetImage(A.assetsFakeButterDetectionIcon),
                         size: 35,
                       ),
-                      backgroundColor: colorService.primaryColor(),
+                      backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
                       label: S.current.butterText,
                       labelStyle: TextStyle(
@@ -169,7 +168,7 @@ class DetailPage extends StatelessWidget {
                         AssetImage(A.assetsVegOilRegressionIcon),
                         size: 80,
                       ),
-                      backgroundColor: colorService.primaryColor(),
+                      backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
                       label: S.current.oilText,
                       labelStyle: TextStyle(

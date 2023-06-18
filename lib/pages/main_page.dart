@@ -1,9 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_simple_dependency_injection/injector.dart';
 
-import '../services/color_service.dart';
+import '../utils/app_colors.dart';
 import 'about_page.dart';
 import 'detail_page.dart';
 
@@ -17,8 +16,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final colorService = Injector().get<ColorService>();
-
   late CameraController controller;
   late Future<void> _initializeControllerFuture;
 
@@ -58,7 +55,7 @@ class _MainPageState extends State<MainPage> {
         child: CameraPreview(controller),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: colorService.primaryColor(),
+        color: AppColors.primary,
         shape: const CircularNotchedRectangle(),
         child: Row(
           children: <Widget>[
@@ -108,7 +105,7 @@ class _MainPageState extends State<MainPage> {
 
           _openDetailScreen(path: image.path);
         },
-        backgroundColor: colorService.primaryColor(),
+        backgroundColor: AppColors.primary,
         child: const Icon(
           Icons.camera_alt,
           size: 25,

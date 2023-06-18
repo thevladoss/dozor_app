@@ -1,17 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../generated/l10n.dart';
-import '../services/color_service.dart';
 import '../services/font_service.dart';
-import '../utils/app_images.dart';
 import '../ui/Buttons.dart';
+import '../utils/app_colors.dart';
+import '../utils/app_images.dart';
 
 class AboutPage extends StatelessWidget {
-  final colorService = Injector().get<ColorService>();
   final fontService = Injector().get<FontService>();
 
   AboutPage({super.key});
@@ -21,7 +18,7 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(S.current.aboutScreenAppBarTitleText),
-        backgroundColor: colorService.primaryColor(),
+        backgroundColor: AppColors.primary,
       ),
       body: SafeArea(
         child: Container(
