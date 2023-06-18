@@ -8,10 +8,10 @@ import 'package:flutter_simple_dependency_injection/injector.dart';
 
 import '../blocs/detail_bloc.dart';
 import '../generated/l10n.dart';
-import '../services/FontService.dart';
+import '../services/color_service.dart';
+import '../services/font_service.dart';
 import '../ui/Painters.dart';
-import '../common_setup/Assets.dart';
-import '../services/ColorService.dart';
+import '../utils/app_images.dart';
 
 class DetailScreen extends StatelessWidget {
   final colorService = Injector().get<ColorService>();

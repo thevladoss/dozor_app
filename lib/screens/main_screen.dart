@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
 
-import 'AboutScreen.dart';
-import 'DetailScreen.dart';
-import '../services/ColorService.dart';
+import '../services/color_service.dart';
+import 'about_screen.dart';
+import 'detail_screen.dart';
 
 class MainScreen extends StatefulWidget {
   final List<CameraDescription> cameras;

@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:ui';
-import 'package:DoZor/algo/oil_regressor.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../algo/butter_counterfeit_classifier.dart';
-import '../algo/oil_classifier.dart';
 import '../generated/l10n.dart';
 
 part 'detail_event.dart';
@@ -16,8 +13,8 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   late Image _image;
   final imageKey = GlobalKey();
   List<int> _imageDataList = List<int>.empty(growable: false);
-  ButterCounterfeitClassifier butterClassifier = ButterCounterfeitClassifier();
-  OilRegressor oilClassifier = OilRegressor();
+  // ButterCounterfeitClassifier butterClassifier = ButterCounterfeitClassifier();
+  // OilRegressor oilClassifier = OilRegressor();
   bool _isButter = true;
   double x = 0.0;
   double y = 0.0;
@@ -25,7 +22,6 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   Color resultColor = Colors.black;
   String result = S.current.detailScreenSelectPixel;
   bool pointVisibility = false;
-
 
   DetailBloc() : super(DetailButter()) {
     on<DetailEvent>((event, emit) async {
@@ -65,11 +61,13 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
       list[i + 2],
     );
 
-    result = (_isButter) ? await butterClassifier.predict(
-        pickedColor.red, pickedColor.green, pickedColor.blue) : await oilClassifier.predict(
-        pickedColor.red, pickedColor.green, pickedColor.blue);
+    // result = (_isButter) ? await butterClassifier.predict(
+    //     pickedColor.red, pickedColor.green, pickedColor.blue) : await oilClassifier.predict(
+    //     pickedColor.red, pickedColor.green, pickedColor.blue);
 
-    resultColor = (result == S.current.detailScreenFalsification) ? Colors.red : Colors.green;
+    resultColor = (result == S.current.detailScreenFalsification)
+        ? Colors.red
+        : Colors.green;
 
     pointVisibility = true;
   }

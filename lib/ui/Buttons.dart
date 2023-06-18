@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
 
-import '../services/ColorService.dart';
+import '../services/color_service.dart';
 
 class PrimaryButton extends StatelessWidget {
   final colorService = Injector().get<ColorService>();

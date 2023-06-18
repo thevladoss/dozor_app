@@ -5,9 +5,9 @@ import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../generated/l10n.dart';
-import '../common_setup/Assets.dart';
-import '../services/ColorService.dart';
-import '../services/FontService.dart';
+import '../services/color_service.dart';
+import '../services/font_service.dart';
+import '../utils/app_images.dart';
 import '../ui/Buttons.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -98,7 +98,7 @@ class AboutScreen extends StatelessWidget {
   }
 
   Widget _contactDevelopers() {
-      return Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: PrimaryButton(
         height: 51,
@@ -128,7 +128,7 @@ class AboutScreen extends StatelessWidget {
 
           if (await launchUrl(mail)) {
             //email app opened
-          }else{
+          } else {
             //email app is not opened
           }
         },
