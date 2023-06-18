@@ -13,13 +13,13 @@ import '../services/font_service.dart';
 import '../ui/Painters.dart';
 import '../utils/app_images.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailPage extends StatelessWidget {
   final colorService = Injector().get<ColorService>();
   final fontService = Injector().get<FontService>();
 
   final String imagePath;
 
-  DetailScreen({required this.imagePath, Key? key}) : super(key: key);
+  DetailPage({required this.imagePath, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

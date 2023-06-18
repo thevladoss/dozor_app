@@ -10,11 +10,11 @@ import '../services/font_service.dart';
 import '../utils/app_images.dart';
 import '../ui/Buttons.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutPage extends StatelessWidget {
   final colorService = Injector().get<ColorService>();
   final fontService = Injector().get<FontService>();
 
-  AboutScreen({super.key});
+  AboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {

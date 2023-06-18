@@ -4,19 +4,19 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
 
 import '../services/color_service.dart';
-import 'about_screen.dart';
-import 'detail_screen.dart';
+import 'about_page.dart';
+import 'detail_page.dart';
 
-class MainScreen extends StatefulWidget {
+class MainPage extends StatefulWidget {
   final List<CameraDescription> cameras;
 
-  const MainScreen({required this.cameras, Key? key}) : super(key: key);
+  const MainPage({required this.cameras, Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainPageState extends State<MainPage> {
   final colorService = Injector().get<ColorService>();
 
   late CameraController controller;
@@ -89,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AboutScreen()));
+                      MaterialPageRoute(builder: (context) => AboutPage()));
                 }),
             const SizedBox(
               width: 4.0,
@@ -120,7 +120,7 @@ class _MainScreenState extends State<MainScreen> {
   _openDetailScreen({required String path}) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => DetailScreen(
+        builder: (context) => DetailPage(
           imagePath: path,
         ),
       ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
 
-import 'screens/main_screen.dart';
+import 'pages/main_page.dart';
 import 'services/color_service.dart';
 import 'generated/l10n.dart';
 import 'utils/module_container.dart';
@@ -37,7 +37,7 @@ class MasloApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'DoZor',
       theme: ThemeData(),
-      home: MainScreen(cameras: cameras),
+      home: MainPage(cameras: cameras),
     );
   }
 }
