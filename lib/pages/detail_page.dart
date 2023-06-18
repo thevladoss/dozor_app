@@ -4,18 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:flutter_simple_dependency_injection/injector.dart';
 
 import '../blocs/detail_bloc.dart';
 import '../generated/l10n.dart';
-import '../services/font_service.dart';
 import '../ui/Painters.dart';
 import '../utils/app_colors.dart';
+import '../utils/app_fonts.dart';
 import '../utils/app_images.dart';
 
 class DetailPage extends StatelessWidget {
-  final fontService = Injector().get<FontService>();
-
   final String imagePath;
 
   DetailPage({required this.imagePath, Key? key}) : super(key: key);
@@ -34,7 +31,7 @@ class DetailPage extends StatelessWidget {
                 S.current.detailTitle,
                 style: TextStyle(
                   fontSize: 20.0,
-                  fontFamily: fontService.openSans,
+                  fontFamily: AppFonts.openSans,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
@@ -112,7 +109,7 @@ class DetailPage extends StatelessWidget {
                                 'rgb(${ctx.read<DetailBloc>().pickedColor.red}, ${ctx.read<DetailBloc>().pickedColor.green}, ${ctx.read<DetailBloc>().pickedColor.blue})',
                                 style: TextStyle(
                                     fontSize: 16.0,
-                                    fontFamily: fontService.openSans),
+                                    fontFamily: AppFonts.openSans),
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(
@@ -122,7 +119,7 @@ class DetailPage extends StatelessWidget {
                                 ctx.read<DetailBloc>().result,
                                 style: TextStyle(
                                     fontSize: 24.0,
-                                    fontFamily: fontService.openSans,
+                                    fontFamily: AppFonts.openSans,
                                     fontWeight: FontWeight.w600),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -158,7 +155,7 @@ class DetailPage extends StatelessWidget {
                       foregroundColor: Colors.white,
                       label: S.current.butterText,
                       labelStyle: TextStyle(
-                          fontFamily: fontService.openSans,
+                          fontFamily: AppFonts.openSans,
                           fontWeight: FontWeight.w600),
                       onTap: () =>
                           ctx.read<DetailBloc>().add(DetailSetButterMode()),
@@ -172,7 +169,7 @@ class DetailPage extends StatelessWidget {
                       foregroundColor: Colors.white,
                       label: S.current.oilText,
                       labelStyle: TextStyle(
-                          fontFamily: fontService.openSans,
+                          fontFamily: AppFonts.openSans,
                           fontWeight: FontWeight.w600),
                       onTap: () =>
                           ctx.read<DetailBloc>().add(DetailSetOilMode()),

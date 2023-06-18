@@ -1,16 +1,13 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_simple_dependency_injection/injector.dart';
 
-import 'pages/main_page.dart';
 import 'generated/l10n.dart';
-import 'utils/module_container.dart';
+import 'pages/main_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final cameras = await availableCameras();
-  ModuleContainer.initialize(Injector());
   runApp(MasloApp(cameras: cameras));
 }
 

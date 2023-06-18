@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../generated/l10n.dart';
-import '../services/font_service.dart';
 import '../ui/Buttons.dart';
 import '../utils/app_colors.dart';
+import '../utils/app_fonts.dart';
 import '../utils/app_images.dart';
 
 class AboutPage extends StatelessWidget {
-  final fontService = Injector().get<FontService>();
-
   AboutPage({super.key});
 
   @override
@@ -75,7 +72,7 @@ class AboutPage extends StatelessWidget {
           S.current.appName,
           style: TextStyle(
               fontSize: 30,
-              fontFamily: fontService.openSans,
+              fontFamily: AppFonts.openSans,
               fontWeight: FontWeight.w700),
         ),
         SizedBox(height: 10),
@@ -85,7 +82,7 @@ class AboutPage extends StatelessWidget {
             S.current.aboutScreenFederalServiceInfoText,
             style: TextStyle(
                 fontSize: 16,
-                fontFamily: fontService.openSans,
+                fontFamily: AppFonts.openSans,
                 fontWeight: FontWeight.w400),
             textAlign: TextAlign.center,
           ),
@@ -114,7 +111,7 @@ class AboutPage extends StatelessWidget {
               S.current.aboutScreenContactDevelopers,
               style: TextStyle(
                 color: Colors.white,
-                fontFamily: fontService.inter,
+                fontFamily: AppFonts.inter,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -140,7 +137,7 @@ class AboutPage extends StatelessWidget {
           S.current.aboutScreenVersionText,
           style: TextStyle(
             fontSize: 14,
-            fontFamily: fontService.openSans,
+            fontFamily: AppFonts.openSans,
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -152,7 +149,7 @@ class AboutPage extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,
-            fontFamily: fontService.openSans,
+            fontFamily: AppFonts.openSans,
             fontWeight: FontWeight.w400,
           ),
         )
