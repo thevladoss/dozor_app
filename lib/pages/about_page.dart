@@ -52,12 +52,12 @@ class AboutPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Image.asset(
-          A.assetsArmsGreenIcon,
+          AppImages.assetsArmsGreenIcon,
           width: 170,
           height: 170,
         ),
         Image.asset(
-          A.assetsArmsBlueIcon,
+          AppImages.assetsArmsBlueIcon,
           width: 170,
           height: 170,
         )
@@ -103,7 +103,7 @@ class AboutPage extends StatelessWidget {
             Container(
                 width: 19,
                 height: 14,
-                child: Image.asset(A.assetsContactDevelopersIcon)),
+                child: Image.asset(AppImages.assetsContactDevelopersIcon)),
             SizedBox(
               width: 10,
             ),

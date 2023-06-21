@@ -1,4 +1,4 @@
-class A {
+abstract class AppImages {
   static const String assetsFakeButterDetectionIcon =
       "assets/icons/FakeButterDetectionIcon.png";
   static const String assetsVegOilRegressionIcon =

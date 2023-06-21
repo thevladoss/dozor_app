@@ -148,7 +148,7 @@ class DetailPage extends StatelessWidget {
                   children: [
                     SpeedDialChild(
                       child: ImageIcon(
-                        AssetImage(A.assetsFakeButterDetectionIcon),
+                        AssetImage(AppImages.assetsFakeButterDetectionIcon),
                         size: 35,
                       ),
                       backgroundColor: AppColors.primary,
@@ -162,7 +162,7 @@ class DetailPage extends StatelessWidget {
                     ),
                     SpeedDialChild(
                       child: const ImageIcon(
-                        AssetImage(A.assetsVegOilRegressionIcon),
+                        AssetImage(AppImages.assetsVegOilRegressionIcon),
                         size: 80,
                       ),
                       backgroundColor: AppColors.primary,
