@@ -43,6 +43,9 @@ flutter:
     - assets/img/
     - assets/icons/
   fonts:
+    - family: Tetst
+      fonts:
+        - asset: fonts/Tetst.ttf
     - family: Inter
       fonts:
         - asset: fonts/Inter/Inter-Black.ttf

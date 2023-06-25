@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../tetst_icons.dart';
 import '../utils/app_colors.dart';
 import 'about_page.dart';
 import 'detail_page.dart';
@@ -16,7 +17,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late CameraController controller;
-  late Future<void> _initializeControllerFuture;
 
   @override
   void initState() {
@@ -26,12 +26,6 @@ class _MainPageState extends State<MainPage> {
       ResolutionPreset.high,
       enableAudio: false,
     );
-    _initializeControllerFuture = controller.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {});
-    }).catchError((Object e) {});
   }
 
   @override
@@ -51,105 +45,94 @@ class _MainPageState extends State<MainPage> {
             return Column(
               children: [
                 Container(
-                  height: constraints.maxHeight * 0.85,
+                  height: constraints.maxHeight * 0.83,
                   color: Colors.white,
                 ),
-                SizedBox(
-                  height: constraints.maxHeight * 0.15,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                Expanded(
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          color: Colors.white,
-                        ),
-                        child: Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(8.0),
-                            onTap: () async {
-                              XFile? pickedFile = await ImagePicker().pickImage(
-                                source: ImageSource.gallery,
-                              );
-                              if (pickedFile != null) {
-                                _openDetailScreen(path: pickedFile.path);
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Spacer(),
-                      Stack(
-                        alignment: Alignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 70,
-                            width: 70,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white.withOpacity(0.3),
-                            ),
+                          SizedBox(
+                            width: 10,
                           ),
                           Container(
-                            height: 60,
-                            width: 60,
+                            height: 50,
+                            width: 50,
                             decoration: BoxDecoration(
-                              shape: BoxShape.circle,
+                              borderRadius: BorderRadius.circular(8.0),
                               color: Colors.white,
                             ),
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                customBorder: CircleBorder(),
-                                onTap: () {},
-                                child: Container(),
+                                borderRadius: BorderRadius.circular(8.0),
+                                onTap: () async {
+                                  XFile? pickedFile =
+                                      await ImagePicker().pickImage(
+                                    source: ImageSource.gallery,
+                                  );
+                                  if (pickedFile != null) {
+                                    _openDetailScreen(path: pickedFile.path);
+                                  }
+                                },
                               ),
                             ),
                           ),
+                          Spacer(),
+                          InkWell(
+                            borderRadius: BorderRadius.circular(8),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AboutPage(),
+                                ),
+                              );
+                            },
+                            child: SizedBox(
+                              width: 70,
+                              height: 60,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Tetst.butter,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                  Text(
+                                    "Подробнее",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
                         ],
                       ),
-                      Spacer(),
-                      InkWell(
-                        borderRadius: BorderRadius.circular(8),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AboutPage(),
-                            ),
-                          );
-                        },
-                        child: SizedBox(
-                          width: 70,
-                          height: 60,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.info_outline,
-                                color: Colors.white,
-                                size: 30,
-                              ),
-                              Text(
-                                "Подробнее",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
+                      Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                            border: Border.all(
+                                color: AppColors.primaryLight, width: 6)),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            customBorder: CircleBorder(),
+                            onTap: () {},
+                            child: Container(),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 )
