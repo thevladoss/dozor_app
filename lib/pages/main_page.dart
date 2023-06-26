@@ -2,8 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../tetst_icons.dart';
 import '../utils/app_colors.dart';
+import '../utils/app_icons.dart';
 import 'about_page.dart';
 import 'detail_page.dart';
 
@@ -99,9 +99,7 @@ class _MainPageState extends State<MainPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Icon(
-                                    Tetst.butter,
-                                    color: Colors.white,
-                                    size: 30,
+                                    AppIcons.butter,
                                   ),
                                   Text(
                                     "Подробнее",

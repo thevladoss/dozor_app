@@ -39,13 +39,15 @@ flutter_icons:
 flutter:
   uses-material-design: true
   generate: true
-  assets:
-    - assets/img/
-    - assets/icons/
+  
+  # assets:
+  #   - assets/img/
+  #   - assets/icons/
+
   fonts:
-    - family: Tetst
+    - family: AppIcons
       fonts:
-        - asset: fonts/Tetst.ttf
+        - asset: fonts/AppIcons.ttf
     - family: Inter
       fonts:
         - asset: fonts/Inter/Inter-Black.ttf
