@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,15 +18,22 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late CameraController controller;
+  late Future<void> _initializeControllerFuture;
 
   @override
   void initState() {
     super.initState();
     controller = CameraController(
-      widget.cameras[0],
+      widget.cameras.first,
       ResolutionPreset.high,
       enableAudio: false,
     );
+    _initializeControllerFuture = controller.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    }).catchError((Object e) {});
   }
 
   @override
@@ -36,6 +44,9 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (!controller.value.isInitialized) {
+      return Container();
+    }
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: SafeArea(
@@ -44,9 +55,49 @@ class _MainPageState extends State<MainPage> {
           child: LayoutBuilder(builder: (context, constraints) {
             return Column(
               children: [
-                Container(
-                  height: constraints.maxHeight * 0.83,
-                  color: Colors.white,
+                Stack(
+                  children: [
+                    AspectRatio(
+                      aspectRatio: 0.75,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Transform.scale(
+                          scale: 1,
+                          child: CameraPreview(controller),
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: DottedBorder(
+                        borderType: BorderType.RRect,
+                        radius: Radius.circular(10),
+                        strokeWidth: 4,
+                        color: Colors.white,
+                        borderPadding: EdgeInsets.all(2),
+                        strokeCap: StrokeCap.round,
+                        dashPattern: [25, 15],
+                        child: Container(
+                          color: Colors.transparent,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 68,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(10)),
+                        color: Colors.white,
+                      ),
+                      child: Text(
+                        "Сфотографируйте образец",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: AppColors.primary),
+                      ),
+                    )
+                  ],
                 ),
                 Expanded(
                   child: Stack(
@@ -126,7 +177,15 @@ class _MainPageState extends State<MainPage> {
                           color: Colors.transparent,
                           child: InkWell(
                             customBorder: CircleBorder(),
-                            onTap: () {},
+                            onTap: () async {
+                              await _initializeControllerFuture;
+
+                              final image = await controller.takePicture();
+
+                              if (!mounted) return;
+
+                              _openDetailScreen(path: image.path);
+                            },
                             child: Container(),
                           ),
                         ),

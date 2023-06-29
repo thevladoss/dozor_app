@@ -100,10 +100,10 @@ class AboutPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-                width: 19,
-                height: 14,
-                child: Image.asset(AppImages.assetsContactDevelopersIcon)),
+            // Container(
+            //     width: 19,
+            //     height: 14,
+            //     child: Image.asset(AppImages.assetsContactDevelopersIcon)),
             SizedBox(
               width: 10,
             ),

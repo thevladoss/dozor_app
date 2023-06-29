@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:DoZor/utils/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -147,10 +148,7 @@ class DetailPage extends StatelessWidget {
                   foregroundColor: Colors.white,
                   children: [
                     SpeedDialChild(
-                      child: ImageIcon(
-                        AssetImage(AppImages.assetsFakeButterDetectionIcon),
-                        size: 35,
-                      ),
+                      child: Icon(AppIcons.butter),
                       backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
                       label: S.current.butterText,
@@ -161,10 +159,7 @@ class DetailPage extends StatelessWidget {
                           ctx.read<DetailBloc>().add(DetailSetButterMode()),
                     ),
                     SpeedDialChild(
-                      child: const ImageIcon(
-                        AssetImage(AppImages.assetsVegOilRegressionIcon),
-                        size: 80,
-                      ),
+                      child: const Icon(AppIcons.milk),
                       backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
                       label: S.current.oilText,

@@ -25,6 +25,7 @@ dependencies:
   flutter_bloc: ^8.1.1
   flutter_speed_dial: ^7.0.0
   url_launcher: ^6.1.7
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
@@ -68,6 +69,18 @@ flutter:
           weight: 200
         - asset: fonts/Inter/Inter-Thin.ttf
           weight: 100
+    - family: Gotham Pro
+      fonts:
+        - asset: fonts/GothamPro/gothampro-black.ttf
+          weight: 900
+        - asset: fonts/GothamPro/gothampro-bold.ttf
+          weight: 700
+        - asset: fonts/GothamPro/gothampro-medium.ttf
+          weight: 500
+        - asset: fonts/GothamPro/gothampro.ttf
+          weight: 400
+        - asset: fonts/GothamPro/gothampro-light.ttf
+          weight: 300
     - family: Open Sans
       fonts:
         - asset: fonts/OpenSans/OpenSans-ExtraBold.ttf
