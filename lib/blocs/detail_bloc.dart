@@ -44,7 +44,6 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   Future<void> predictionByPixel(Offset position) async {
     _imageDataList = await captureImage();
     if (_imageDataList.isEmpty) return;
-
     final w = _image.width;
     final h = _image.height;
     x = position.dx.round().clamp(0, w - 1).toDouble();

@@ -70,20 +70,14 @@ class AboutPage extends StatelessWidget {
       children: <Widget>[
         Text(
           S.current.appName,
-          style: TextStyle(
-              fontSize: 30,
-              fontFamily: AppFonts.openSans,
-              fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
         ),
         SizedBox(height: 10),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 25),
           child: Text(
             S.current.aboutScreenFederalServiceInfoText,
-            style: TextStyle(
-                fontSize: 16,
-                fontFamily: AppFonts.openSans,
-                fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             textAlign: TextAlign.center,
           ),
         ),
@@ -111,7 +105,6 @@ class AboutPage extends StatelessWidget {
               S.current.aboutScreenContactDevelopers,
               style: TextStyle(
                 color: Colors.white,
-                fontFamily: AppFonts.inter,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -137,7 +130,6 @@ class AboutPage extends StatelessWidget {
           S.current.aboutScreenVersionText,
           style: TextStyle(
             fontSize: 14,
-            fontFamily: AppFonts.openSans,
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -149,7 +141,6 @@ class AboutPage extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,
-            fontFamily: AppFonts.openSans,
             fontWeight: FontWeight.w400,
           ),
         )
