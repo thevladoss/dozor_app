@@ -51,8 +51,8 @@ flutter:
         - asset: fonts/AppIcons.ttf
     - family: Gotham Pro
       fonts:
-        - asset: fonts/GothamPro/GothamPro-Black.ttf
-          weight: 900
+        # - asset: fonts/GothamPro/GothamPro-Black.ttf
+        #   weight: 900
         - asset: fonts/GothamPro/GothamPro-Bold.ttf
           weight: 700
         - asset: fonts/GothamPro/GothamPro-Medium.ttf

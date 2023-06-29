@@ -95,15 +95,28 @@ class DetailPage extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
-                              CupertinoButton(
-                                  child: Icon(AppIcons.back),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  }),
+                              Row(
+                                children: [
+                                  CupertinoButton(
+                                    child: Icon(
+                                      AppIcons.back,
+                                      size: 16,
+                                      color: AppColors.primary,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
                               Text(
                                 "Выберите область для анализа",
+                                maxLines: 1,
                                 style: TextStyle(
-                                    fontSize: 20, color: AppColors.primary),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.normal,
+                                  color: AppColors.primary,
+                                ),
                               ),
                             ],
                           ),
