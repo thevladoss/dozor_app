@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:DoZor/dairy_analyzer.dart';
+import 'package:DoZor/utils/app_colors.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,37 +15,28 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   late Image _image;
   final imageKey = GlobalKey();
   List<int> _imageDataList = List<int>.empty(growable: false);
-  // ButterCounterfeitClassifier butterClassifier = ButterCounterfeitClassifier();
-  // OilRegressor oilClassifier = OilRegressor();
-  bool _isButter = true;
+  Dairy activeDairy = Dairy.butter;
   double x = 0.0;
   double y = 0.0;
-  Color pickedColor = Colors.black;
-  Color resultColor = Colors.black;
-  String result = S.current.detailScreenSelectPixel;
   bool pointVisibility = false;
 
-  DetailBloc() : super(DetailButter()) {
+  DetailBloc() : super(DetailDeafult()) {
     on<DetailEvent>((event, emit) async {
       if (event is DetailSelectPixel) {
-        await predictionByPixel(event.position);
-        (_isButter) ? emit(DetailButter()) : emit(DetailOil());
+        emit(await predictionByPixel(event.position));
       } else if (event is DetailHidePoint) {
         pointVisibility = false;
-        (_isButter) ? emit(DetailButter()) : emit(DetailOil());
-      } else if (event is DetailSetButterMode) {
-        _isButter = true;
-        emit(DetailButter());
-      } else if (event is DetailSetOilMode) {
-        _isButter = false;
-        emit(DetailOil());
+        // (_isButter) ? emit(DetailButter()) : emit(DetailOil());
+      } else if (event is DetailSetDairyMode) {
+        activeDairy = event.dairy;
+        // emit(DetailSuccessResult());
       }
     });
   }
 
-  Future<void> predictionByPixel(Offset position) async {
+  Future<DetailState> predictionByPixel(Offset position) async {
     _imageDataList = await captureImage();
-    if (_imageDataList.isEmpty) return;
+    if (_imageDataList.isEmpty) return DetailDeafult();
     final w = _image.width;
     final h = _image.height;
     x = position.dx.round().clamp(0, w - 1).toDouble();
@@ -53,22 +46,24 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     final list = _imageDataList;
     int i = (y * (w * 4) + x * 4).toInt();
 
-    pickedColor = Color.fromARGB(
+    Color pickedColor = Color.fromARGB(
       list[i + 3],
       list[i],
       list[i + 1],
       list[i + 2],
     );
 
-    // result = (_isButter) ? await butterClassifier.predict(
-    //     pickedColor.red, pickedColor.green, pickedColor.blue) : await oilClassifier.predict(
-    //     pickedColor.red, pickedColor.green, pickedColor.blue);
-
-    resultColor = (result == S.current.detailScreenFalsification)
-        ? Colors.red
-        : Colors.green;
-
     pointVisibility = true;
+
+    return DetailResult(
+        dairy: activeDairy,
+        pickedColor: pickedColor,
+        resultColor: AppColors.green,
+        resultPercent: FatInDairyAnalyzer.fromDiary(
+                dairy: activeDairy,
+                r: pickedColor.red.toDouble(),
+                g: pickedColor.green.toDouble())
+            .resultPercent);
   }
 
   Future<List<int>> captureImage() async {

@@ -2,6 +2,16 @@ void main() {
   print(FatInDairyAnalyzer.milk(r: 255, g: 255).resultPercent);
 }
 
+enum Dairy {
+  butter('Масло сливочное'),
+  milk('Молоко'),
+  curd('Творог'),
+  sour('Сметана');
+
+  final String val;
+  const Dairy(this.val);
+}
+
 class FatInDairyAnalyzer {
   final double _r;
   final double _g;
@@ -76,5 +86,19 @@ class FatInDairyAnalyzer {
       a2: -0.00120625,
       interval: [0.1, 0.3],
     );
+  }
+
+  factory FatInDairyAnalyzer.fromDiary(
+      {required Dairy dairy, required double r, required double g}) {
+    switch (dairy) {
+      case Dairy.butter:
+        return FatInDairyAnalyzer.butter(r: r, g: g);
+      case Dairy.milk:
+        return FatInDairyAnalyzer.milk(r: r, g: g);
+      case Dairy.curd:
+        return FatInDairyAnalyzer.curd(r: r, g: g);
+      case Dairy.sour:
+        return FatInDairyAnalyzer.sourCream(r: r, g: g);
+    }
   }
 }

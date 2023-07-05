@@ -13,6 +13,8 @@ class DetailSelectPixel extends DetailEvent {
 
 class DetailHidePoint extends DetailEvent {}
 
-class DetailSetButterMode extends DetailEvent {}
+class DetailSetDairyMode extends DetailEvent {
+  final Dairy dairy;
 
-class DetailSetOilMode extends DetailEvent {}
+  DetailSetDairyMode({required this.dairy});
+}

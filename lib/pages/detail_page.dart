@@ -59,14 +59,13 @@ class DetailPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        (ctx.read<DetailBloc>().pointVisibility)
+                        (state is DetailResult)
                             ? CustomPaint(
                                 painter: PointPainter(
                                     x: ctx.read<DetailBloc>().x,
                                     y: ctx.read<DetailBloc>().y,
-                                    color: ctx.read<DetailBloc>().pickedColor,
-                                    colorRound:
-                                        ctx.read<DetailBloc>().resultColor),
+                                    color: state.pickedColor,
+                                    colorRound: state.resultColor),
                               )
                             : Container(),
                         Positioned.fill(
@@ -128,7 +127,29 @@ class DetailPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: Container(
-                        color: Colors.white,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              'Результат',
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: AppColors.primary,
+                              ),
+                            ),
+                            Expanded(
+                              child: (state is DetailResult)
+                                  ? _buildResult(state)
+                                  : _buildDefaultResult(),
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   ],
@@ -138,6 +159,89 @@ class DetailPage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Column _buildResult(DetailResult state) {
+    return Column(
+      children: [
+        Spacer(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              AppIcons.butter,
+              color: AppColors.green,
+              size: 20,
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            Text(
+              state.dairy.val,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+                color: AppColors.green,
+              ),
+            )
+          ],
+        ),
+        Spacer(),
+        Row(
+          children: [
+            SizedBox(
+              width: 16,
+            ),
+            Text(
+              'Жирность:',
+              style: TextStyle(
+                fontSize: 16,
+                color: AppColors.primary,
+              ),
+            ),
+            SizedBox(
+              width: 2,
+            ),
+            Text(
+              state.resultPercent,
+              style: TextStyle(
+                fontSize: 16,
+                color: AppColors.green,
+              ),
+            ),
+            Spacer(),
+            Text(
+              'RGB: (${state.pickedColor.red}, ${state.pickedColor.green}, ${state.pickedColor.blue})',
+              style: TextStyle(
+                fontSize: 16,
+                color: AppColors.primary,
+              ),
+            ),
+            SizedBox(
+              width: 16,
+            ),
+          ],
+        ),
+        Spacer()
+      ],
+    );
+  }
+
+  Column _buildDefaultResult() {
+    return Column(
+      children: [
+        Spacer(),
+        Text(
+          'Для отображения результата сначала выберите область анализа',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 16,
+            color: AppColors.primary,
+          ),
+        ),
+        Spacer()
+      ],
     );
   }
 }
