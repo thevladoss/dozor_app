@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:ui';
+
 import 'package:DoZor/dairy_analyzer.dart';
 import 'package:DoZor/utils/app_colors.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../generated/l10n.dart';
 
 part 'detail_event.dart';
-
 part 'detail_state.dart';
 
 class DetailBloc extends Bloc<DetailEvent, DetailState> {

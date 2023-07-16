@@ -4,7 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../generated/l10n.dart';
 import '../ui/Buttons.dart';
 import '../utils/app_colors.dart';
-import '../utils/app_fonts.dart';
 import '../utils/app_images.dart';
 
 class AboutPage extends StatelessWidget {
