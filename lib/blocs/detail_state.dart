@@ -10,12 +10,12 @@ class DetailResult extends DetailState {
   final Dairy dairy;
   final Color pickedColor;
   final Color resultColor;
-  final String resultPercent;
+  final String? resultPercent;
 
   DetailResult({
     required this.dairy,
     required this.pickedColor,
     required this.resultColor,
-    required this.resultPercent,
+    this.resultPercent,
   });
 }

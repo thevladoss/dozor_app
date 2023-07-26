@@ -169,20 +169,22 @@ class DetailPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              AppIcons.butter,
-              color: AppColors.green,
-              size: 20,
-            ),
+            (state.resultPercent != null)
+                ? Icon(
+                    AppIcons.butter,
+                    color: AppColors.green,
+                    size: 20,
+                  )
+                : Container(),
             SizedBox(
               width: 8,
             ),
             Text(
-              state.dairy.val,
+              (state.resultPercent != null) ? state.dairy.val : '',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 28,
-                color: AppColors.green,
+                color: state.resultColor,
               ),
             )
           ],
@@ -194,7 +196,7 @@ class DetailPage extends StatelessWidget {
               width: 16,
             ),
             Text(
-              'Жирность:',
+              (state.resultPercent != null) ? 'Жирность:' : '',
               style: TextStyle(
                 fontSize: 16,
                 color: AppColors.primary,
@@ -204,7 +206,7 @@ class DetailPage extends StatelessWidget {
               width: 2,
             ),
             Text(
-              state.resultPercent,
+              state.resultPercent ?? '',
               style: TextStyle(
                 fontSize: 16,
                 color: AppColors.green,
