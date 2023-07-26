@@ -1,10 +1,10 @@
+import 'package:DoZor/utils/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../generated/l10n.dart';
 import '../ui/Buttons.dart';
 import '../utils/app_colors.dart';
-import '../utils/app_images.dart';
 
 class AboutPage extends StatelessWidget {
   AboutPage({super.key});
@@ -12,33 +12,71 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(S.current.aboutScreenAppBarTitleText),
-        backgroundColor: AppColors.primary,
-      ),
+      backgroundColor: AppColors.primary,
       body: SafeArea(
-        child: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Spacer(
-                flex: 2,
+              _appBar(context),
+              Spacer(),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Dozor',
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.black333),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        'Россельхознадзор - федеральная служба по ветеринарному и фитосанитарному надзору',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.black333,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w100,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Image.asset(
+                            'assets/images/ArmsGreen.png',
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Image.asset('assets/images/ArmsBlue.png'),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-              _centralAppDescription(),
-              SizedBox(height: 55),
-              _centralLogoRow(),
-              SizedBox(height: 25),
-              Spacer(
-                flex: 2,
-              ),
+              Spacer(),
               _contactDevelopers(),
-              Spacer(
-                flex: 1,
-              ),
+              Spacer(),
               _footerInfo(),
-              SizedBox(
-                height: 15,
-              )
             ],
           ),
         ),
@@ -46,79 +84,75 @@ class AboutPage extends StatelessWidget {
     );
   }
 
-  Widget _centralLogoRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Image.asset(
-          AppImages.assetsArmsGreenIcon,
-          width: 170,
-          height: 170,
-        ),
-        Image.asset(
-          AppImages.assetsArmsBlueIcon,
-          width: 170,
-          height: 170,
-        )
-      ],
-    );
-  }
-
-  Widget _centralAppDescription() {
-    return Column(
-      children: <Widget>[
-        Text(
-          S.current.appName,
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
-        ),
-        SizedBox(height: 10),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 25),
-          child: Text(
-            S.current.aboutScreenFederalServiceInfoText,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-            textAlign: TextAlign.center,
+  Container _appBar(BuildContext context) {
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: [
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              AppIcons.back,
+              size: 16,
+              color: AppColors.primary,
+            ),
           ),
-        ),
-      ],
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              'О приложении',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
+                color: AppColors.primary,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _contactDevelopers() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: PrimaryButton(
-        height: 51,
-        color: Color(0xFF1557A1),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Container(
-            //     width: 19,
-            //     height: 14,
-            //     child: Image.asset(AppImages.assetsContactDevelopersIcon)),
-            SizedBox(
-              width: 10,
+    return PrimaryButton(
+      height: 51,
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            Icons.send,
+            color: AppColors.primary,
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Text(
+            S.current.aboutScreenContactDevelopers,
+            style: TextStyle(
+              color: AppColors.primary,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
-            Text(
-              S.current.aboutScreenContactDevelopers,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-        onTap: () async {
-          final Uri mail = Uri.parse('mailto:<osinvladislav@yandex.ru>');
-
-          if (await launchUrl(mail)) {
-            //email app opened
-          } else {
-            //email app is not opened
-          }
-        },
+          ),
+        ],
       ),
+      onTap: () async {
+        final Uri mail = Uri.parse('mailto:<osinvladislav@yandex.ru>');
+
+        if (await launchUrl(mail)) {
+          //email app opened
+        } else {
+          //email app is not opened
+        }
+      },
     );
   }
 
@@ -126,21 +160,23 @@ class AboutPage extends StatelessWidget {
     return Column(
       children: [
         Text(
-          S.current.aboutScreenVersionText,
+          'Версия 2.0',
           style: TextStyle(
             fontSize: 14,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w300,
+            color: AppColors.grey,
           ),
         ),
         SizedBox(
           height: 7,
         ),
         Text(
-          S.current.aboutScreenDevelopedBy,
+          'Дизайн: Ника Молоткова\nРазработчики: Илья Тампио и Владислав Осин',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w300,
+            color: AppColors.grey,
           ),
         )
       ],

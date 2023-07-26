@@ -41,9 +41,8 @@ flutter:
   uses-material-design: true
   generate: true
   
-  # assets:
-  #   - assets/img/
-  #   - assets/icons/
+  assets:
+    - assets/images/
 
   fonts:
     - family: AppIcons

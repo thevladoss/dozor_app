@@ -57,8 +57,8 @@ class _MainPageState extends State<MainPage> {
             children: [
               Stack(
                 children: [
-                  AspectRatio(
-                    aspectRatio: 0.75,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.8,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Transform.scale(

@@ -32,8 +32,8 @@ class DetailPage extends StatelessWidget {
                   children: [
                     Stack(
                       children: [
-                        AspectRatio(
-                          aspectRatio: 0.75,
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.8,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Transform.scale(
@@ -226,13 +226,13 @@ class DetailPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            (state.resultPercent != null)
-                ? Icon(
-                    AppIcons.butter,
-                    color: AppColors.green,
-                    size: 20,
-                  )
-                : Container(),
+            // (state.resultPercent != null)
+            //     ? Icon(
+            //         AppIcons.butter,
+            //         color: AppColors.green,
+            //         size: 20,
+            //       )
+            //     : Container(),
             SizedBox(
               width: 8,
             ),

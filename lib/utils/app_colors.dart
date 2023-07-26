@@ -10,4 +10,8 @@ abstract class AppColors {
   static const red = Color(0xffB80F0F);
 
   static const accent = Color(0xffF5727A);
+
+  static const grey = Color(0xffC6C6C6);
+
+  static const black333 = Color(0xff333333);
 }
