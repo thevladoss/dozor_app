@@ -14,7 +14,8 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   late Image _image;
   final imageKey = GlobalKey();
   List<int> _imageDataList = List<int>.empty(growable: false);
-  Dairy activeDairy = Dairy.butter;
+  Dairy _activeDairy = Dairy.butter;
+  get activeDairy => _activeDairy;
   double x = 0.0;
   double y = 0.0;
   bool pointVisibility = false;
@@ -27,8 +28,8 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
         pointVisibility = false;
         // (_isButter) ? emit(DetailButter()) : emit(DetailOil());
       } else if (event is DetailSetDairyMode) {
-        activeDairy = event.dairy;
-        // emit(DetailSuccessResult());
+        _activeDairy = event.dairy;
+        emit(DetailDeafult());
       }
     });
   }
@@ -55,14 +56,15 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     pointVisibility = true;
 
     FatInDairyAnalyzer analyzer = FatInDairyAnalyzer.fromDairy(
-        dairy: activeDairy,
+        dairy: _activeDairy,
         r: pickedColor.red.toDouble(),
         g: pickedColor.green.toDouble());
 
     return DetailResult(
-        dairy: activeDairy,
+        dairy: _activeDairy,
         pickedColor: pickedColor,
-        resultColor: (!analyzer.isFalsification) ? AppColors.green : AppColors.red,
+        resultColor:
+            (!analyzer.isFalsification) ? AppColors.green : AppColors.red,
         resultPercent:
             (!analyzer.isFalsification) ? analyzer.resultPercent : null);
   }
