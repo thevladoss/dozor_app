@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,7 +60,9 @@ class _MainPageState extends State<MainPage> {
               Stack(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.8,
+                    height: MediaQuery.of(context).size.height *
+                        ((Platform.isIOS) ? 0.75 : 0.8),
+                    width: double.infinity,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Transform.scale(

@@ -33,7 +33,8 @@ class DetailPage extends StatelessWidget {
                     Stack(
                       children: [
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.8,
+                          height: MediaQuery.of(context).size.height *
+                              ((Platform.isIOS) ? 0.75 : 0.8),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Transform.scale(
@@ -233,11 +234,15 @@ class DetailPage extends StatelessWidget {
             //         size: 20,
             //       )
             //     : Container(),
-            SizedBox(
-              width: 8,
-            ),
+            // SizedBox(
+            //   width: 8,
+            // ),
             Text(
-              (state.resultPercent != null) ? state.dairy.val : 'Фальсификат',
+              (state.resultColor == AppColors.green)
+                  ? state.dairy.val
+                  : (state.resultColor == AppColors.red)
+                      ? 'Фальсификат'
+                      : 'Плохой пиксель',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 28,

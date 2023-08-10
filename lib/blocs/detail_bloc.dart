@@ -55,7 +55,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
 
     pointVisibility = true;
 
-    FatInDairyAnalyzer analyzer = FatInDairyAnalyzer.fromDairy(
+    DairyAnalyzer analyzer = DairyAnalyzer.fromDairy(
         dairy: _activeDairy,
         r: pickedColor.red.toDouble(),
         g: pickedColor.green.toDouble());
@@ -63,10 +63,14 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     return DetailResult(
         dairy: _activeDairy,
         pickedColor: pickedColor,
-        resultColor:
-            (!analyzer.isFalsification) ? AppColors.green : AppColors.red,
-        resultPercent:
-            (!analyzer.isFalsification) ? analyzer.resultPercent : null);
+        resultColor: (analyzer.dairyType == DairyType.real)
+            ? AppColors.green
+            : (analyzer.dairyType == DairyType.fake)
+                ? AppColors.red
+                : AppColors.accent,
+        resultPercent: (analyzer.dairyType == DairyType.real)
+            ? analyzer.resultPercent
+            : null);
   }
 
   Future<List<int>> captureImage() async {

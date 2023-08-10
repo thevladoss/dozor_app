@@ -8,109 +8,108 @@ enum Dairy {
   const Dairy(this.val);
 }
 
-class FatInDairyAnalyzer {
+enum DairyType { fake, unknown, real }
+
+class DairyAnalyzer {
   final double _r;
   final double _g;
   final double _b;
   final double _a1;
   final double _a2;
-  final bool _falsification;
-  final List<double> _interval;
+  final double _z;
+  final double _maxZ;
 
-  get _f => _b + _a1 * _r + _a2 * _g;
-
-  get result => (_f < _interval.first)
-      ? _interval.first
-      : (_f > _interval.last)
-          ? _interval.last
-          : _f;
+  get result => _b + _a1 * _r + _a2 * _g;
 
   get resultPercent => "${(result * 100).round()}%";
 
-  get isFalsification => _falsification;
+  get dairyType => (_z > _maxZ)
+      ? DairyType.fake
+      : (_z < _maxZ)
+          ? DairyType.real
+          : DairyType.unknown;
 
-  FatInDairyAnalyzer._({
+  DairyAnalyzer._({
     required double r,
     required double g,
     required double b,
     required double a1,
     required double a2,
-    required bool falsification,
-    required List<double> interval,
-  })  : _interval = interval,
-        _b = b,
+    required double z,
+    required double maxZ,
+  })  : _b = b,
         _a2 = a2,
         _a1 = a1,
-        _falsification = falsification,
+        _z = z,
+        _maxZ = maxZ,
         _g = g,
         _r = r;
 
-  factory FatInDairyAnalyzer.butter(
-      {required double r, required double g, required bool falsification}) {
-    return FatInDairyAnalyzer._(
+  factory DairyAnalyzer.butter({required double r, required double g}) {
+    return DairyAnalyzer._(
       r: r,
       g: g,
       b: 0.64788446,
       a1: 0.00074337,
       a2: -0.00016862,
-      falsification: falsification,
-      interval: [0.7, 0.85],
+      z: 8.671163852605872 + -0.21685354986656763 * r + 0.1930282339596327 * g,
+      maxZ: 4.0357,
     );
   }
 
-  factory FatInDairyAnalyzer.milk(
-      {required double r, required double g, required bool falsification}) {
-    return FatInDairyAnalyzer._(
+  factory DairyAnalyzer.milk({required double r, required double g}) {
+    return DairyAnalyzer._(
       r: r,
       g: g,
       b: -0.20636096,
       a1: 0.00059706,
       a2: 0.00072699,
-      falsification: falsification,
-      interval: [0.01, 0.07],
+      z: 15.659540303515476 +
+          -0.19395714197877442 * r +
+          0.05650543281393807 * g,
+      maxZ: 1.4088,
     );
   }
 
-  factory FatInDairyAnalyzer.curd(
-      {required double r, required double g, required bool falsification}) {
-    return FatInDairyAnalyzer._(
+  factory DairyAnalyzer.curd({required double r, required double g}) {
+    return DairyAnalyzer._(
       r: r,
       g: g,
       b: 0.26444533,
       a1: 0.00137956,
       a2: -0.00248443,
-      falsification: falsification,
-      interval: [0.0, 0.2],
+      z: -5.209553066729884 +
+          -0.18188736027679964 * r +
+          0.17332238496754376 * g,
+      maxZ: 1.2992,
     );
   }
 
-  factory FatInDairyAnalyzer.sourCream(
-      {required double r, required double g, required bool falsification}) {
-    return FatInDairyAnalyzer._(
+  factory DairyAnalyzer.sourCream({required double r, required double g}) {
+    return DairyAnalyzer._(
       r: r,
       g: g,
       b: 0.13212307,
       a1: 0.00148833,
       a2: -0.00120625,
-      falsification: falsification,
-      interval: [0.1, 0.3],
+      z: -7.2532929330692095 +
+          -0.05064753636310958 * r +
+          0.08501644882327405 * g,
+      maxZ: 0.6457,
     );
   }
 
-  factory FatInDairyAnalyzer.fromDairy(
+  factory DairyAnalyzer.fromDairy(
       {required Dairy dairy, required double r, required double g}) {
     switch (dairy) {
       case Dairy.butter:
-        return FatInDairyAnalyzer.butter(
-            r: r, g: g, falsification: (r >= 150 && g <= 120));
+        return DairyAnalyzer.butter(r: r, g: g);
       case Dairy.milk:
-        return FatInDairyAnalyzer.milk(r: r, g: g, falsification: (r <= 134));
+        return DairyAnalyzer.milk(r: r, g: g);
       case Dairy.curd:
-        return FatInDairyAnalyzer.curd(
-            r: r, g: g, falsification: (g >= 169.5 && r <= 156));
+        return DairyAnalyzer.curd(r: r, g: g);
       case Dairy.sour:
-        return FatInDairyAnalyzer.sourCream(
-            r: r, g: g, falsification: (g >= 170.5 && r <= 163.5));
+        return DairyAnalyzer.sourCream(r: r, g: g);
     }
   }
 }
