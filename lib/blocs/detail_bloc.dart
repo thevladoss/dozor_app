@@ -11,26 +11,24 @@ part 'detail_event.dart';
 part 'detail_state.dart';
 
 class DetailBloc extends Bloc<DetailEvent, DetailState> {
+  final Dairy dairy;
   late Image _image;
   final imageKey = GlobalKey();
   List<int> _imageDataList = List<int>.empty(growable: false);
-  Dairy _activeDairy = Dairy.butter;
-  get activeDairy => _activeDairy;
   double x = 0.0;
   double y = 0.0;
   bool pointVisibility = false;
 
-  DetailBloc() : super(DetailDeafult()) {
+  DetailBloc({required this.dairy}) : super(DetailDeafult()) {
     on<DetailEvent>((event, emit) async {
       if (event is DetailSelectPixel) {
         emit(await predictionByPixel(event.position));
       } else if (event is DetailHidePoint) {
         pointVisibility = false;
-        // (_isButter) ? emit(DetailButter()) : emit(DetailOil());
-      } else if (event is DetailSetDairyMode) {
-        _activeDairy = event.dairy;
-        emit(DetailDeafult());
       }
+      //  else if (event is DetailSetDairyMode) {
+      //   emit(DetailDeafult());
+      // }
     });
   }
 
@@ -56,12 +54,12 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     pointVisibility = true;
 
     DairyAnalyzer analyzer = DairyAnalyzer.fromDairy(
-        dairy: _activeDairy,
+        dairy: dairy,
         r: pickedColor.red.toDouble(),
         g: pickedColor.green.toDouble());
 
     return DetailResult(
-        dairy: _activeDairy,
+        dairy: dairy,
         pickedColor: pickedColor,
         resultColor: (analyzer.dairyType == DairyType.real)
             ? AppColors.green

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../dairy_analyzer.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_icons.dart';
 import 'about_page.dart';
@@ -22,6 +23,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late CameraController controller;
   late Future<void> _initializeControllerFuture;
+  Dairy _activeDairy = Dairy.butter;
 
   @override
   void initState() {
@@ -135,18 +137,70 @@ class _MainPageState extends State<MainPage> {
 
   Container _buildAppBar() {
     return Container(
-      height: 68,
+      height: 129,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
         color: Colors.white,
       ),
-      child: Text(
-        "Сфотографируйте образец",
-        style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            color: AppColors.primary),
+      child: Column(
+        children: [
+          Spacer(),
+          Text(
+            "Сфотографируйте образец",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: AppColors.primary),
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: CupertinoSlidingSegmentedControl<Dairy>(
+              backgroundColor: AppColors.primary,
+              thumbColor: AppColors.accent,
+              groupValue: _activeDairy,
+              children: const <Dairy, Widget>{
+                Dairy.butter: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    'Масло',
+                    style: TextStyle(color: CupertinoColors.white),
+                  ),
+                ),
+                Dairy.curd: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    'Творог',
+                    style: TextStyle(color: CupertinoColors.white),
+                  ),
+                ),
+                Dairy.milk: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    'Молоко',
+                    style: TextStyle(color: CupertinoColors.white),
+                  ),
+                ),
+                Dairy.sour: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    'Сметана',
+                    style: TextStyle(color: CupertinoColors.white),
+                  ),
+                ),
+              },
+              onValueChanged: (Dairy? value) {
+                if (value != null) {
+                  setState(() {
+                    _activeDairy = value;
+                  });
+                }
+              },
+            ),
+          ),
+          Spacer(),
+        ],
       ),
     );
   }
@@ -217,6 +271,7 @@ class _MainPageState extends State<MainPage> {
       MaterialPageRoute(
         builder: (context) => DetailPage(
           imagePath: path,
+          dairy: _activeDairy,
         ),
       ),
     );

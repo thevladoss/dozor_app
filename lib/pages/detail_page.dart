@@ -14,13 +14,15 @@ import '../utils/app_colors.dart';
 
 class DetailPage extends StatelessWidget {
   final String imagePath;
+  final Dairy dairy;
 
-  DetailPage({required this.imagePath, Key? key}) : super(key: key);
+  DetailPage({required this.imagePath, Key? key, required this.dairy})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DetailBloc(),
+      create: (context) => DetailBloc(dairy: dairy),
       child: BlocBuilder<DetailBloc, DetailState>(
         builder: (ctx, state) {
           return Scaffold(
@@ -86,98 +88,7 @@ class DetailPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          height: 129,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(10)),
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  CupertinoButton(
-                                    child: Icon(
-                                      AppIcons.back,
-                                      size: 16,
-                                      color: AppColors.primary,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                "Выберите область для анализа",
-                                maxLines: 1,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.normal,
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                              Spacer(),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: CupertinoSlidingSegmentedControl<Dairy>(
-                                  backgroundColor: AppColors.primary,
-                                  thumbColor: AppColors.accent,
-                                  groupValue:
-                                      ctx.read<DetailBloc>().activeDairy,
-                                  children: const <Dairy, Widget>{
-                                    Dairy.butter: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 8),
-                                      child: Text(
-                                        'Масло',
-                                        style: TextStyle(
-                                            color: CupertinoColors.white),
-                                      ),
-                                    ),
-                                    Dairy.curd: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 8),
-                                      child: Text(
-                                        'Творог',
-                                        style: TextStyle(
-                                            color: CupertinoColors.white),
-                                      ),
-                                    ),
-                                    Dairy.milk: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 8),
-                                      child: Text(
-                                        'Молоко',
-                                        style: TextStyle(
-                                            color: CupertinoColors.white),
-                                      ),
-                                    ),
-                                    Dairy.sour: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 8),
-                                      child: Text(
-                                        'Сметана',
-                                        style: TextStyle(
-                                            color: CupertinoColors.white),
-                                      ),
-                                    ),
-                                  },
-                                  onValueChanged: (Dairy? value) {
-                                    if (value != null) {
-                                      ctx.read<DetailBloc>().add(
-                                          DetailSetDairyMode(dairy: value));
-                                    }
-                                  },
-                                ),
-                              ),
-                              Spacer(),
-                            ],
-                          ),
-                        )
+                        _buildAppBar(context, ctx)
                       ],
                     ),
                     SizedBox(
@@ -220,6 +131,54 @@ class DetailPage extends StatelessWidget {
     );
   }
 
+  Container _buildAppBar(BuildContext context, BuildContext ctx) {
+    return Container(
+      height: 129,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              CupertinoButton(
+                child: Icon(
+                  AppIcons.back,
+                  size: 16,
+                  color: AppColors.primary,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+          Text(
+            "Выберите область для анализа",
+            maxLines: 1,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.normal,
+              color: AppColors.primary,
+            ),
+          ),
+          Spacer(),
+          Text(
+            dairy.subtitle,
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: AppColors.accent,
+            ),
+          ),
+          Spacer(),
+        ],
+      ),
+    );
+  }
+
   Column _buildResult(DetailResult state) {
     return Column(
       children: [
@@ -239,7 +198,7 @@ class DetailPage extends StatelessWidget {
             // ),
             Text(
               (state.resultColor == AppColors.green)
-                  ? state.dairy.val
+                  ? state.dairy.title
                   : (state.resultColor == AppColors.red)
                       ? 'Фальсификат'
                       : 'Плохой пиксель',

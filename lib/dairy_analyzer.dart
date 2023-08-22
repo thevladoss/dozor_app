@@ -1,11 +1,12 @@
 enum Dairy {
-  butter('Масло сливочное'),
-  milk('Молоко'),
-  curd('Творог'),
-  sour('Сметана');
+  butter('Масло сливочное', 'масла'),
+  milk('Молоко', 'молока'),
+  curd('Творог', 'творога'),
+  sour('Сметана', 'сметаны');
 
-  final String val;
-  const Dairy(this.val);
+  final String title;
+  final String subtitle;
+  const Dairy(this.title, this.subtitle);
 }
 
 enum DairyType { fake, unknown, real }
