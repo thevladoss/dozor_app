@@ -30,12 +30,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
-  path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
-  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
+  camera_avfoundation: be3be85408cd4126f250386828e9b1dfa40ab436
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
 
-PODFILE CHECKSUM: 663715e941f9adb426e33bf9376914006f9ea95b
+PODFILE CHECKSUM: 1a782344d33c12ced0182eeab11e8668d253eb48
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.16.2
