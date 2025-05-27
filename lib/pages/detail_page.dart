@@ -36,7 +36,7 @@ class DetailPage extends StatelessWidget {
                       children: [
                         SizedBox(
                           height: MediaQuery.of(context).size.height *
-                              ((Platform.isIOS) ? 0.75 : 0.8),
+                              ((Platform.isIOS) ? 0.72 : 0.8),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Transform.scale(
